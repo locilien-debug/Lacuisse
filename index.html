@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Cuisse — Accueil, Membres & Chants</title>
+<meta name="description" content="La Cuisse : accueil, membres et chansonnier (hip/cuisse)." />
+<meta name="theme-color" content="#7a1c1c" />
+<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%237a1c1c"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="white">🦵</text></svg>' />
+<style>
+  :root{
+    --bg:#0f1115; --bg-soft:#161922; --card:#1b1f2a; --text:#e8eaed; --muted:#aeb4bf;
+    --primary:#7a1c1c; --primary-2:#9d2a2a; --accent:#f0c419;
+    --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.25); --wrap:min(1180px,92vw)
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#fafbfe; --bg-soft:#f2f4fa; --card:#ffffff; --text:#12141a; --muted:#4b5563; --shadow:0 10px 24px rgba(15,17,21,.08);}
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial; background:var(--bg); color:var(--text)}
+  a{color:inherit; text-decoration:none}
+  .wrap{ width:var(--wrap); margin-inline:auto; padding-inline:1rem }
+  header.site{ position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(10px); background: color-mix(in oklab, var(--bg) 82%, transparent); border-bottom:1px solid color-mix(in oklab, var(--muted) 20%, transparent) }
+  .nav{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 0 }
+  .brand{ display:flex; align-items:center; gap:.65rem; font-weight:900; letter-spacing:.3px }
+  .brand svg{ width:28px; height:28px }
+  .menu{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap }
+  .pill{ padding:.5rem .8rem; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-weight:700 }
+  .btn{ display:inline-flex; align-items:center; gap:.5rem; padding:.8rem 1rem; border-radius:9999px; font-weight:800; border:1px solid transparent; cursor:pointer }
+  .btn-primary{ background:linear-gradient(135deg,var(--primary),var(--primary-2)); color:#fff; box-shadow:var(--shadow) }
+  .btn-ghost{ background:transparent; border-color:rgba(255,255,255,.14) }
+  .btn-soft{ background:color-mix(in oklab, var(--accent) 16%, transparent); color:#111; font-weight:900 }
+
+  main{ padding-bottom:2rem }
+  section{ padding:2rem 0 }
+  .hero{ padding: 3.5rem 0 2rem }
+  .hero h1{ font-size:clamp(2rem,5vw,3rem); line-height:1.1; margin:0 0 .6rem }
+  .muted{ color:var(--muted) }
+  .eyebrow{ display:inline-block; font-weight:800; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color: var(--accent); background: color-mix(in oklab, var(--accent) 15%, transparent); padding:.3rem .6rem; border-radius:999px; margin-bottom:.6rem }
+
+  .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:1rem }
+  .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem }
+  @media (max-width: 900px){ .grid-2,.grid-3{ grid-template-columns: 1fr } }
+  .card{ background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow) }
+
+  /* Membres */
+  .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin: .5rem 0 1rem }
+  .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap:1rem }
+  .member{ grid-column: span 4; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; display:flex; gap:1rem; padding:1rem; align-items:center }
+  .member img{ width:72px; height:72px; border-radius:14px; object-fit:cover; background:#222 }
+  .member h3{ margin:.2rem 0 }
+  .badges{ display:flex; gap:.35rem; flex-wrap:wrap }
+  .badge{ font-size:.75rem; padding:.2rem .5rem; border-radius:999px; background:color-mix(in oklab, var(--accent) 18%, transparent); color:#111; font-weight:700 }
+  @media (max-width: 900px){ .member{ grid-column: span 6 } }
+  @media (max-width: 640px){ .member{ grid-column: span 12 } }
+  .edit-only{ display:none }            /* masqué par défaut */
+  .authed .edit-only{ display:inline }  /* visible si connecté */
+
+  /* Chants */
+  .search-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin: .6rem 0 1rem }
+  input[type="search"], input[type="email"], input[type="password"], input[type="text"], textarea{
+    width:100%; padding:.8rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:var(--bg-soft); color:var(--text)
+  }
+  details.song{ background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding: .8rem 1rem; margin:.6rem 0 }
+  details.song summary{ cursor:pointer; font-weight:800 }
+  pre.lyrics{ white-space:pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: color-mix(in oklab, var(--bg) 85%, transparent); padding: .8rem 1rem; border-radius:12px }
+
+  footer{ padding:1.2rem 0; border-top:1px solid rgba(255,255,255,.08) }
+</style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap nav">
+      <a href="#/" class="brand" aria-label="Accueil">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><text x="50%" y="62%" text-anchor="middle" font-size="42">🦵</text></svg>
+        <span>La&nbsp;Cuisse</span>
+      </a>
+      <nav class="menu">
+        <a class="pill" href="#/">Accueil</a>
+        <a class="pill" href="#/membres">Membres</a>
+        <a class="pill" href="#/chants">Chants</a>
+        <a class="pill" href="#/forum">Forum</a><!-- AJOUT -->
+        <button id="loginBtn" class="btn btn-ghost" title="Connexion">Se connecter</button>
+        <button id="logoutBtn" class="btn btn-ghost" style="display:none">Se déconnecter</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app" class="wrap">
+    <!-- Accueil -->
+    <section data-route="/" class="hero">
+      <span class="eyebrow">Groupe</span>
+      <h1>Bienvenue sur le site (officiel) de <em style="font-style:normal; color:var(--accent)">La Cuisse</em> 🦵</h1>
+      <p class="muted">Ici tu trouveras un mot du groupe, les membres et notre chansonnier version <em>hip / cuisse</em>.</p>
+      <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem">
+        <button class="btn btn-soft" id="donBtn">Nous faire un don</button>
+        <a class="btn btn-ghost" href="#/chants">Ouvrir le chansonnier</a>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem">
+        <h3>La cuisse, c’est qui ?</h3>
+        <p>hip cuisse hip cuisse hip cuisse cuisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse oh hisse hip cuisse hip cuisse hip hip hip l'élite de la tour hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip hip cuisse cuisse cuisse cuisse hip cuisse</p>
+      </div>
+
+      <div class="grid-2" style="margin-top:1rem">
+        <div class="card">
+          <h3>Cantus-cuisse, c’est quoi ?</h3>
+          <p>Un évenement secret où les chants présents sur ce site sont chantés, dans une cave sombre a l'abri des regards.</p>
+        </div>
+        <div class="card">
+          <h3>4h cuisse</h3>
+          <p>hip cuisse hip cuisse hip cuisse cuisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse oh hisse et pour la cuisse ho hiss ehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip  hip hip cuisse cuisse cuisse cuisse hip cuisse</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <h3>Pourquoi “La Cuisse” ?</h3>
+        <p>Même moi je sais pas.</p>
+      </div>
+    </section>
+
+    <!-- Membres -->
+    <section data-route="/membres">
+      <h2>Les membres</h2>
+      <div class="toolbar">
+        <div style="display:flex; gap:.5rem; flex-wrap:wrap">
+          <button class="btn btn-primary edit-only" id="addMember">Ajouter un membre</button>
+          <button class="btn btn-ghost edit-only" id="exportMembers">Exporter JSON</button>
+          
+        </div>
+        <input id="memberSearch" type="search" placeholder="Rechercher un membre…" />
+      </div>
+      <div id="memberList" class="cards" aria-live="polite"></div>
+      <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
+    </section>
+
+    <!-- Chants -->
+    <section data-route="/chants">
+      <h2>Chansonnier</h2>
+      <div class="search-row">
+        <input id="songSearch" type="search" placeholder="Rechercher un chant…" />
+        <button class="btn btn-ghost" id="expandAll">Tout ouvrir</button>
+        <button class="btn btn-ghost" id="collapseAll">Tout fermer</button>
+        <button class="btn btn-ghost edit-only" id="exportSongs">Exporter JSON</button>
+      </div>
+      <div id="songList"></div>
+    </section>
+
+    <!-- Forum (AJOUT) -->
+    <section data-route="/forum">
+      <h2>Forum</h2>
+      <p class="muted">Tout le monde peut écrire un message. Les messages sont sauvegardés dans ton navigateur.</p>
+      <form id="forumForm" class="card" style="display:grid; gap:.6rem; margin-bottom:1rem">
+        <input id="forumAuthor" placeholder="Ton nom ou pseudo" />
+        <textarea id="forumMessage" rows="4" placeholder="Ton message…"></textarea>
+        <div style="display:flex; justify-content:flex-end">
+          <button class="btn btn-primary" type="submit">Publier</button>
+        </div>
+      </form>
+      <div id="forumList" style="display:grid; gap:.6rem"></div>
+    </section>
+  </main>
+
+  <footer class="wrap"><small class="muted">© <span id="year"></span> La Cuisse — Site statique.</small></footer>
+
+  <!-- Connexion -->
+  <dialog id="loginDialog" style="border:none; border-radius:16px; padding:0; width:min(520px,96vw)">
+    <form id="loginForm" method="dialog" class="card" style="margin:0">
+      <h3 style="margin-top:0">Connexion</h3>
+      <p class="muted" style="margin-top:-.4rem">Entre l’email et le mot de passe fournis par l’admin.</p>
+      <div class="grid-3" style="grid-template-columns:1fr">
+        <input type="email" id="email" placeholder="email@exemple.com" required />
+        <input type="password" id="password" placeholder="Mot de passe" required />
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:.5rem; margin-top:.6rem">
+        <button class="btn btn-ghost" value="cancel">Annuler</button>
+        <button class="btn btn-primary" id="doLogin" value="default">Se connecter</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Édition membre -->
+  <dialog id="memberDialog" style="border:none; border-radius:16px; padding:0; width:min(680px,96vw)">
+    <form id="memberForm" method="dialog" class="card" style="margin:0">
+      <h3 id="dialogTitle" style="margin-top:0">Ajouter/éditer un membre</h3>
+      <div class="grid-3" style="grid-template-columns: 1fr 1fr">
+        <div><label>Nom</label><input name="name" required placeholder="Prénom Nom" /></div>
+        <div><label>Surnom</label><input name="nick" placeholder="Alias" /></div>
+        <div style="grid-column: span 2"><label>Rôles / Badges (séparés par des virgules)</label><input name="badges" placeholder="Président, Chants, Trésorier" /></div>
+        <div style="grid-column: span 2"><label>Photo (URL)</label><input name="photo" placeholder="https://…" /></div>
+        <div style="grid-column: span 2"><label>Description / Bio</label><textarea name="bio" rows="5" placeholder="Présente-toi…"></textarea></div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:.5rem; margin-top:.6rem">
+        <button class="btn btn-ghost" value="cancel">Annuler</button>
+        <button class="btn btn-primary" id="saveMember" value="default">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+<script>
+/* ==== Auth (simple front) ==== */
+const LS = {
+  keyMembers: 'laCuisse_members_v2',
+  keySongs: 'laCuisse_songs_v2',
+  keyAuth: 'laCuisse_authed_v1',
+  keyForum: 'laCuisse_forum_v1' // AJOUT
+};
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const loginDialog = document.getElementById('loginDialog');
+const loginForm = document.getElementById('loginForm');
+
+function setAuthUI(){
+  const authed = localStorage.getItem(LS.keyAuth)==='1';
+  document.body.classList.toggle('authed', authed);
+  loginBtn.style.display = authed ? 'none' : 'inline-flex';
+  logoutBtn.style.display = authed ? 'inline-flex' : 'none';
+}
+loginBtn?.addEventListener('click', ()=> loginDialog.showModal());
+logoutBtn?.addEventListener('click', ()=>{
+  localStorage.removeItem(LS.keyAuth);
+  setAuthUI();
+});
+loginForm?.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  // Très simple: n'importe quel email + mot de passe "cuisse" autorise
+  const pass = document.getElementById('password').value.trim();
+  if(pass === 'cuisse2024'){
+    localStorage.setItem(LS.keyAuth, '1');
+    setAuthUI();
+    loginDialog.close();
+  }else{
+    alert('Mot de passe incorrect.');
+  }
+});
+
+/* ==== Router mini (hash) ==== */
+function showRoute(){
+  const hash = location.hash.replace('#','') || '/';
+  document.querySelectorAll('section[data-route]').forEach(s => s.style.display = (s.dataset.route===hash)?'block':'none');
+  if(hash.startsWith('/membre/')){
+    document.querySelector('section[data-route="/membres"]').style.display='block';
+    renderMemberDetail(hash.split('/')[2]);
+  } else {
+    document.getElementById('memberDetail').style.display='none';
+  }
+}
+window.addEventListener('hashchange', showRoute);
+
+/* ==== Don bouton (faux IBAN) ==== */
+document.getElementById('donBtn')?.addEventListener('click', ()=>{
+  alert('hip cuisse a toi ! IBAN : BE12 3456 7890 1234 — communication : "HIP CUISSE"');
+});
+
+/* ==== Données par défaut ==== */
+const defaultMembers = [
+  { id: crypto.randomUUID(), name:'Locigno Aurélien', nick:'Nicolas',   badges:['Chants'], photo:'', bio:'Membre de La Cuisse.'},
+  { id: crypto.randomUUID(), name:'Simons Paillet',   nick:'Elvis',     badges:['Chants'], photo:'', bio:'Toujours chaud pour chanter.' },
+  { id: crypto.randomUUID(), name:'Tim Broers',       nick:'Flavien 1', badges:['Org'], photo:'', bio:'Bio à compléter.' },
+  { id: crypto.randomUUID(), name:'Louis Ronlez',     nick:'Flavien 2', badges:['Org'], photo:'', bio:'Bio à compléter.' },
+];
+
+/* ==== Chants (tu avais déjà tout mis, je laisse inchangé) ==== */
+ const defaultSongs = [
+    {
+      title: "51 je t'aime",
+      lyrics: `
+hip cuisse hip cuisse
+hip cuisse hip
+hip cuisse hip
+hip cuisse hip cuisse !
+
+hip cuisse :
+hip cuisse, hip hip
+hip cuisse hip cuisse hip
+hip cuisse hip hip
+hip cuisse hip cuisse hip !
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+
+hip cuisse
+
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip !
+      `
+    },
+    {
+      title: "Ah que nos pères étaient heureux",
+      lyrics: `
+hip ! hip cuisse hip cuisse hip cuisse (bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip : (bis)
+hip cuisse hip cuisse hip agréable.
+
+Refrain:
+hip cuisse hip cuisse hip hip,
+hip cuisse hip hip, (bis)
+hip cuisse ! hip cuisse hip cuisse hip ! (bis)
+
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip hip grises.
+
+Refrain
+
+hip cuisse hip cuisse hip hip,(bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip philosophie.
+
+Refrain
+
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip.
+
+Refrain
+
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip.
+
+Refrain
+
+hip cuisse hip cuisse hip hip (bis)
+hip cuisse hip cuisse hip,
+hip cuisse hip cuisse hip hip, (bis)
+hip cuisse hip cuisse hip espérance.
+
+Refrain final:
+hip cuisse, hip cuisse hip hip,
+hip cuisse hip hip (bis)
+hip cuisse ! hip cuisse hip cuisse hip ! (bis)
+      `
+    },
+    {
+      title: "Au trente-et-un du mois d'août",
+      lyrics: `
+hip cuisse hip hip hip hip (bis)
+hip cuisse hip hip hip hip (bis)
+hip cuisse hip cuisse hip cuisse
+hip cuisse hip hip hip hip :
+hip cuisse hip cuisse hip cuisse.
+
+Refrain:
+hip cuisse hip hip, hip cuisse hip hip,
+hip cuisse hip cuisse hip hip,
+hip cuisse hip cuisse hip hip,
+hip cuisse hip cuisse hip cuisse
+hip cuisse hip cuisse hip cuisse !
+
+Refrain
+
+hip cuisse hip hip hip hip (bis)
+hip cuisse hip hip hip, (bis)
+hip cuisse, hip cuisse hip hip :
+hip cuisse hip cuisse hip hip
+hip cuisse hip cuisse hip fort !
+
+Refrain
+
+hip cuisse hip hip hip hip (bis)
+hip cuisse : hip cuisse hip ! (bis)
+hip cuisse hip cuisse hip
+hip cuisse hip cuisse hip hip
+hip cuisse hip cuisse hip !
+
+Refrain
+
+hip cuisse hip hip hip hip (bis)
+hip cuisse hip hip hip (bis)
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip cuisse hip hip !
+
+Refrain
+
+hip hip hip hip, hip hip hip (bis)
+hip cuisse hip hip hip hip (bis)
+hip cuisse hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip.
+
+Refrain
+
+hip cuisse hip hip hip hip (bis)
+hip hip hip hip hip hip (bis)
+hip cuisse hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip ?
+
+Refrain
+      `
+    },
+    {
+      title: "Chevaliers de la table ronde",
+      lyrics: `
+hip cuisse hip cuisse hip cuisse}
+hip cuisse hip hip hip hip} (bis)
+
+hip cuisse hip, hip hip hip}
+hip cuisse hip, hip hip hip}
+hip cuisse hip cuisse hip hip}(bis)
+
+hip cuisse hip, hip cuisse hip}
+hip cuisse hip cuisse hip hip}(bis)
+
+hip cuisse hip, hip hip hip}
+hip cuisse hip, hip hip hip}
+hip cuisse hip cuisse hip hip}(bis)
+
+hip cuisse hip hip hip hip}
+hip cuisse hip hip hip hip}(bis)
+
+hip cuisse hip, hip hip hip}
+hip cuisse hip, hip hip hip}
+hip cuisse hip hip hip hip}(bis)
+
+hip cuisse hip cuisse hip hip}
+hip cuisse hip hip hip hip}(bis)
+
+hip cuisse hip, hip hip hip}
+hip cuisse hip, hip hip hip}
+hip cuisse hip hip hip hip}(bis)
+
+hip cuisse hip cuisse hip hip}
+hip cuisse hip hip hip}(bis)
+
+hip cuisse hip, hip hip hip}
+hip cuisse hip, hip hip hip}
+hip cuisse hip hip hip}(bis)
+      `
+    },
+    {
+      title: "Fanchon",
+      lyrics: `
+hip cuisse hip cuisse hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip cuisse hip hip
+hip cuisse hip hip hip hip
+
+Refrain:
+
+hip hip !
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip )
+hip cuisse hip hip hip ) (ter)
+hip hip hip,
+hip hip hip
+
+hip cuisse, hip cuisse hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain
+
+hip cuisse hip cuisse hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain
+
+hip cuisse hip cuisse hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain
+      `
+    },
+    {
+      title: "L'Hôtel Dieu",
+      lyrics: `
+hip cuisse hip hip, hip hip hip ! } (bis)
+hip cuisse hip hip. }
+hip cuisse hip hip hip, hip hip hip !
+hip cuisse hip hip hip.
+
+Refrain:
+
+hip, hip hip hip ! hip hip hip, hip hip hip !
+hip hip hip, hip hip hip hip !
+hip, hip hip hip ! hip hip hip, hip hip hip !
+hip hip hip ! hip hip hip !
+
+hip cuisse hip hip hip, hip hip hip ! } (bis)
+hip hip hip hip hip hip. }
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip !
+hip hip hip hip hip.
+
+hip cuisse hip hip hip, hip hip hip!
+hip hip hip hip hip.
+      `
+    },
+    {
+      title: "La ballade du mutant",
+      lyrics: `
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip, hip hip hip
+hip cuisse hip hip hip hip hip.
+
+Refrain
+
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+
+Refrain
+
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip.
+
+Refrain
+
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip.
+
+Refrain
+      `
+    },
+    {
+      title: "La brabançonne d'une putain",
+      lyrics: `
+hip cuisse hip, hip cuisse hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip !
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip !
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip !
+      `
+    },
+    {
+      title: "La digue du cul",
+      lyrics: `
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip hip,
+hip hip, hip hip,
+hip hip hip hip hip,
+hip cuisse hip hip.
+
+Refrain:
+
+hip cuisse hip hip, hip hip hip, )
+hip cuisse hip, hip, hip )
+hip hip hip ) (bis)
+hip! hip
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip hip,
+hip hip, hip hip,
+hip hip hip hip hip,
+hip cuisse hip hip.
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip hip,...
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip:" hip hip hip!",...
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip,...
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip hip,...
+
+hip cuisse hip hip, hip hip hip hip (bis)
+hip hip hip hip hip,...
+hip hip, hip hip,
+hip hip hip hip hip,
+hip cuisse hip hip.
+      `
+    },
+    {
+      title: "La femme du Roulier",
+      lyrics: `
+hip hip hip,
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip,
+hip cuisse hip hip
+hip cuisse
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip hip hip hip hip ?
+hip cuisse hip hip
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip hip hip hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip
+hip cuisse hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip cuisse hip hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip cuisse hip hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip.
+hip cuisse hip hip
+hip cuisse
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse, hip hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+
+hip cuisse hip hip,
+hip cuisse hip hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse hip hip,
+hip cuisse,
+hip cuisse hip hip
+(hip hip hip hip hip).
+      `
+    },
+    {
+      title: "La Javanaise",
+      lyrics: `
+hip cuisse hip hip hip hip
+hip cuisse hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain:
+
+hip cuisse hip, hip hip hip hip
+hip hip hip hip hip hip oh oh
+hip cuisse hip hip, hip hip hip hip
+hip cuisse hip hip
+hip cuisse hip hip, hip hip
+hip cuisse hip hip
+hip cuisse hip hip, hip hip
+hip cuisse hip hip
+
+hip cuisse hip hip hip, hip hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip
+hip ! hip hip hip hip hip hip hip hip
+hip cuisse hip hip hip
+hip hip hip hip hip, hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain
+      `
+    },
+    {
+      title: "Le cordonnier Pamphyle",
+      lyrics: `
+hip cuisse hip hip
+hip cuisse hip hip
+hip cuisse hip hip hip
+hip hip, hip cuisse hip hip
+(hip ! hip ! hip ! hip ! )
+(hip hip hip hip ) (bis)
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip,
+hip cuisse hip hip hip,
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip,
+hip cuisse hip hip hip
+hip cuisse hip hip.
+
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip hip
+hip cuisse hip hip.
+      `
+    },
+    {
+      title: "Le Fusil",
+      lyrics: `
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip hip hip hip hip hip, }
+hip cuisse hip hip hip hip} BIS
+
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip
+" hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip, }
+hip cuisse hip hip hip hip " } BIS
+
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip, }
+hip cuisse hip hip hip hip. } BIS
+
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip, }
+hip cuisse hip hip hip hip. } BIS
+
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip, }
+hip cuisse hip hip hip hip. } BIS
+      `
+    },
+    {
+      title: "Le Légionnaire",
+      lyrics: `
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+
+Refrain:
+
+hip hip hip, hip hip hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse, hip cuisse hip, ah ah ah
+hip cuisse hip hip hip hip
+hip cuisse, hip cuisse hip, ah ah ah
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip
+
+Refrain
+
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+
+Refrain
+
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip, hip hip hip
+
+Refrain
+      `
+    },
+    {
+      title: "Le plaisir des dieux",
+      lyrics: `
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip hip,
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip :
+hip cuisse hip, hip cuisse hip,
+hip cuisse hip, hip cuisse hip.
+
+hip ! hip hip hip hip hip hip,
+hip cuisse, hip cuisse hip hip :
+hip cuisse hip cuisse hip hip,
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip.
+hip cuisse hip hip hip hip
+hip cuisse, hip cuisse hip hip
+hip cuisse, hip cuisse hip.
+
+hip cuisse hip hip hip, hip hip hip,
+hip cuisse hip hip hip hip hip,
+hip hip hip hip hip hip ;
+hip hip hip hip hip.
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+hip hip hip hip hip hip :
+hip cuisse, hip cuisse hip hip.
+
+hip cuisse hip hip hip hip, hip hip hip,
+hip cuisse hip hip hip hip ;
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip :
+hip hip hip hip hip hip,
+hip cuisse, hip cuisse hip.
+
+hip cuisse hip hip hip hip, hip hip hip,
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip hip :
+hip cuisse, hip cuisse hip,
+hip cuisse, hip cuisse hip.
+
+hip hip, hip, hip hip hip hip,
+hip hip, hip hip, hip hip hip hip.
+hip cuisse hip, hip cuisse hip,
+hip hip hip hip hip hip.
+hip hip hip, hip hip hip hip,
+hip hip : hip hip hip hip hip.
+hip cuisse, hip hip hip hip hip,
+hip cuisse, hip cuisse hip hip.
+      `
+    },
+    {
+      title: "Les quatre jouissances",
+      lyrics: `
+hip cuisse hip hip hip
+hip hip hip hip
+hip cuisse hip hip hip,
+hip cuisse hip hip
+hip hip hip hip
+hip cuisse hip hip
+hip cuisse hip hip hip }
+hip cuisse hip hip } Bis
+      `
+    },
+    {
+      title: "Ma bite",
+      lyrics: `
+hip hip, hip hip (bis)
+hip hip, hip hip (bis)
+hip cuisse hip hip (bis)
+hip hip hip hip hip hip (bis)
+
+hip hip, hip hip (bis)
+hip hip, hip hip (bis)
+hip cuisse hip hip hip (bis)
+hip hip hip hip hip hip (bis)
+
+hip hip, hip hip (bis)
+hip hip, hip hip (bis)
+hip cuisse hip hip hip (bis)
+hip hip hip hip hip (bis)
+
+hip hip, hip hip (bis)
+hip hip hip (bis)
+hip cuisse hip hip (bis)
+hip hip hip hip hip hip (bis)
+
+hip hip, hip hip (bis)
+hip hip, hip hip (bis)
+hip hip hip (bis)
+hip hip hip hip hip hip (bis)
+      `
+    },
+    {
+      title: "Ma femme est morte",
+      lyrics: `
+hip hip hip hip, hip hip hip hip (bis),
+hip cuisse hip hip hip hip hip (bis),
+hip, hip hip ! hip hip hip hip !
+hip hip, hip hip hip hip,
+hip cuisse hip hip hip hip.
+
+Refrain:
+
+hip hip hip hip hip hip hip hip hip hip
+hip cuisse, hip hip,
+hip hip hip !
+hip hip hip hip hip hip hip hip hip hip
+hip cuisse, hip hip,
+hip hip hip !
+
+hip cuisse hip hip hip hip hip (bis)
+hip hip hip hip hip hip : (bis)
+hip hip hip ! hip hip hip hip !
+hip hip hip hip hip hip hip hip hip
+hip hip hip hip hip hip.
+
+Refrain
+
+hip hip hip hip hip hip hip (bis)
+hip hip hip hip hip hip : (bis)
+hip, hip ! hip hip hip hip !
+hip hip hip hip hip hip hip hip hip
+hip hip hip hip hip.
+
+Refrain
+
+a
+hip hip hip hip hip hip hip (bis)
+hip hip hip hip hip hip : (bis)
+hip hip hip ! hip hip hip hip !
+hip hip hip hip hip hip hip hip hip
+hip hip hip hip hip.
+
+Refrain
+
+hip hip hip hip hip hip hip (bis)
+hip hip hip hip hip hip : (bis)
+hip hip hip, hip hip hip hip !
+hip hip hip hip hip, hip hip hip hip
+"hip hip hip hip hip".
+
+Dernier refrain:
+
+hip hip hip, hip hip hip hip hip hip hip hip
+hip hip, hip hip,
+hip hip hip !
+hip hip hip hip hip hip hip hip hip hip
+hip hip, hip hip,
+hip hip hip !
+      `
+    },
+    {
+      title: "Mon ancêtre Gurdil",
+      lyrics: `
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip !
+
+Refrain :
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip cuisse hip hip hip hip !
+
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip !
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip !
+
+(Refrain)
+
+"hip cuisse hip hip hip hip !"
+hip hip hip hip, hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip hip hip hip hip !
+hip hip hip hip hip !
+
+(Refrain)
+
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip
+hip cuisse hip hip hip hip !
+hip cuisse hip hip hip hip
+hip hip hip hip hip
+hip cuisse hip hip hip hip !
+
+(Refrain)
+
+hip hip hip hip hip
+hip cuisse hip hip hip hip hip
+hip hip, hip hip hip hip
+hip hip hip ! hip hip hip hip hip !
+
+(Refrain)(bis)
+      `
+    },
+    {
+      title: "Tape ta pine",
+      lyrics: `
+hip cuisse hip hip,
+hip cuisse hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip cuisse,
+hip hip hip hip hip,
+hip cuisse hip cuisse hip.
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip hip,
+hip cuisse hip hip hip
+hip cuisse hip cuisse,
+hip cuisse hip hip hip`
+    }
+  ];
+
+/* ==== Stockage / état ==== */
+const memberList = document.getElementById('memberList');
+const memberDetail = document.getElementById('memberDetail');
+const memberSearch = document.getElementById('memberSearch');
+let members = JSON.parse(localStorage.getItem(LS.keyMembers) || 'null') || defaultMembers;
+
+const songList = document.getElementById('songList');
+const songSearch = document.getElementById('songSearch');
+let songs = JSON.parse(localStorage.getItem(LS.keySongs) || 'null') || defaultSongs;
+
+function saveMembers(){ localStorage.setItem(LS.keyMembers, JSON.stringify(members)); renderMembers(); }
+function saveSongs(){ localStorage.setItem(LS.keySongs, JSON.stringify(songs)); renderSongs(); }
+
+/* ==== Membres ==== */
+function renderMemberDetail(id){
+  const m = members.find(x=>x.id===id);
+  if(!m){ memberDetail.style.display='none'; return; }
+  memberDetail.style.display='block';
+  memberDetail.innerHTML = `
+    <div style="display:grid; grid-template-columns: 120px 1fr; gap:1rem; align-items:start">
+      <img src="${m.photo||'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2236%22>🦵</text></svg>'}" alt="Photo de ${m.name}" style="width:120px; height:120px; border-radius:16px; object-fit:cover; background:#222"/>
+      <div>
+        <h3 style="margin:.2rem 0">${m.name} <span class="muted">${m.nick?`(${m.nick})`:''}</span></h3>
+        <div class="badges">${(m.badges||[]).map(b=>`<span class='badge'>${b}</span>`).join('')}</div>
+        <p style="margin-top:.6rem">${m.bio||'<span class="muted">Aucune description</span>'}</p>
+        <div class="edit-only" style="display:flex; gap:.5rem; margin-top:.6rem">
+          <button class="btn btn-ghost" id="editThis">✏️ Éditer</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('editThis')?.addEventListener('click', ()=> openMemberDialog(m));
+}
+function renderMembers(){
+  const q = (memberSearch.value||'').toLowerCase();
+  memberList.innerHTML = '';
+  members
+    .filter(m=> [m.name,m.nick,(m.badges||[]).join(' ')].join(' ').toLowerCase().includes(q))
+    .forEach(m =>{
+      const el = document.createElement('article'); el.className='member';
+      el.innerHTML = `
+        <img src="${m.photo||'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2236%22>🦵</text></svg>'}" alt="Photo de ${m.name}">
+        <div style="flex:1">
+          <h3><a href="#/membre/${m.id}">${m.name}</a> <span class="muted">${m.nick?`(${m.nick})`:''}</span></h3>
+          <div class="badges">${(m.badges||[]).map(b=>`<span class='badge'>${b}</span>`).join('')}</div>
+        </div>
+        <div class="edit-only" style="display:flex; gap:.4rem">
+          <button class="btn btn-ghost" aria-label="Éditer" data-action="edit">✏️</button>
+          <button class="btn btn-ghost" aria-label="Supprimer" data-action="delete">🗑️</button>
+        </div>`;
+      const editBtn = el.querySelector('[data-action="edit"]');
+      const delBtn  = el.querySelector('[data-action="delete"]');
+      editBtn?.addEventListener('click', ()=> openMemberDialog(m));
+      // SECURISATION : refus si pas connecté
+      delBtn?.addEventListener('click', ()=>{
+        if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
+        if(confirm('Supprimer ce membre ?')){ members = members.filter(x=>x.id!==m.id); saveMembers(); }
+      });
+      memberList.appendChild(el);
+    });
+}
+const memberDialog = document.getElementById('memberDialog');
+const memberForm = document.getElementById('memberForm');
+function openMemberDialog(existing){
+  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
+  memberForm.reset();
+  memberForm.dataset.editId = existing?.id || '';
+  memberForm.name.value = existing?.name || '';
+  memberForm.nick.value = existing?.nick || '';
+  memberForm.badges.value = (existing?.badges||[]).join(', ');
+  memberForm.photo.value = existing?.photo || '';
+  memberForm.bio.value = existing?.bio || '';
+  document.getElementById('dialogTitle').textContent = existing? 'Éditer un membre' : 'Ajouter un membre';
+  memberDialog.showModal();
+}
+document.getElementById('addMember')?.addEventListener('click', ()=> openMemberDialog());
+document.getElementById('exportMembers')?.addEventListener('click', ()=>{
+  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
+  const blob = new Blob([JSON.stringify(members, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-membres.json'; a.click();
+});
+document.getElementById('importMembers')?.addEventListener('change', (e)=>{
+  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); e.target.value=''; return; }
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ()=>{ try{ members = JSON.parse(r.result); saveMembers(); } catch(err){ alert('Fichier invalide'); } };
+  r.readAsText(file);
+});
+memberForm?.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
+  const id = memberForm.dataset.editId || crypto.randomUUID();
+  const m = {
+    id,
+    name: memberForm.name.value.trim(),
+    nick: memberForm.nick.value.trim(),
+    badges: memberForm.badges.value.split(',').map(s=>s.trim()).filter(Boolean),
+    photo: memberForm.photo.value.trim(),
+    bio: memberForm.bio.value.trim()
+  };
+  if(!m.name){ alert('Nom requis'); return; }
+  const exists = members.some(x=>x.id===id);
+  if(exists) members = members.map(x=> x.id===id? m : x); else members = [m, ...members];
+  const current = location.hash.startsWith('#/membre/') ? location.hash.split('/')[2] : null;
+  if(current && current===id) renderMemberDetail(id);
+  saveMembers(); memberDialog.close();
+});
+memberForm?.addEventListener('close', ()=> memberForm.reset());
+document.addEventListener('click', (e)=>{ if(e.target === memberDialog) memberDialog.close(); });
+memberSearch?.addEventListener('input', renderMembers);
+
+/* ==== Chants ==== */
+function renderSongs(){
+  const q = (songSearch.value||'').toLowerCase();
+  songList.innerHTML = '';
+  songs.filter(s => s.title.toLowerCase().includes(q)).forEach((s)=>{
+    const d = document.createElement('details'); d.className='song';
+    d.innerHTML = `<summary>${s.title}</summary><pre class="lyrics">${s.lyrics}</pre>`;
+    songList.appendChild(d);
+  });
+}
+songSearch?.addEventListener('input', renderSongs);
+document.getElementById('expandAll')?.addEventListener('click', ()=> document.querySelectorAll('details.song').forEach(d=> d.open = true));
+document.getElementById('collapseAll')?.addEventListener('click', ()=> document.querySelectorAll('details.song').forEach(d=> d.open = false));
+document.getElementById('exportSongs')?.addEventListener('click', ()=>{
+  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
+  const blob = new Blob([JSON.stringify(songs, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-chants.json'; a.click();
+});
+
+/* ==== Forum (AJOUT) ==== */
+const forumList = document.getElementById('forumList');
+const forumForm = document.getElementById('forumForm');
+const forumAuthor = document.getElementById('forumAuthor');
+const forumMessage = document.getElementById('forumMessage');
+let forum = JSON.parse(localStorage.getItem(LS.keyForum) || '[]');
+
+function saveForum(){ localStorage.setItem(LS.keyForum, JSON.stringify(forum)); renderForum(); }
+function renderForum(){
+  if(!forumList) return;
+  forumList.innerHTML = '';
+  if(forum.length===0){
+    forumList.innerHTML = `<div class="card muted">Aucun message pour l'instant. Écris le premier !</div>`;
+    return;
+  }
+  forum.slice().reverse().forEach(post=>{
+    const box = document.createElement('article');
+    box.className = 'card';
+    box.innerHTML = `
+      <div style="display:flex; align-items:center; gap:.6rem">
+        <strong>${post.author ? escapeHTML(post.author) : 'Anonyme'}</strong>
+        <span class="muted" style="font-size:.85em">· ${new Date(post.date).toLocaleString()}</span>
+      </div>
+      <p style="margin:.6rem 0 0">${escapeHTML(post.message)}</p>
+    `;
+    forumList.appendChild(box);
+  });
+}
+function escapeHTML(s=''){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+forumForm?.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const author = forumAuthor.value.trim() || 'Anonyme';
+  const message = forumMessage.value.trim();
+  if(!message){ alert('Message vide.'); return; }
+  forum.push({ id: crypto.randomUUID(), author, message, date: Date.now() });
+  forumAuthor.value = ''; forumMessage.value = '';
+  saveForum();
+});
+
+/* ==== Init ==== */
+document.getElementById('year').textContent = new Date().getFullYear();
+if(!localStorage.getItem(LS.keyMembers)) localStorage.setItem(LS.keyMembers, JSON.stringify(defaultMembers));
+if(!localStorage.getItem(LS.keySongs)) localStorage.setItem(LS.keySongs, JSON.stringify(defaultSongs));
+members = JSON.parse(localStorage.getItem(LS.keyMembers));
+songs = JSON.parse(localStorage.getItem(LS.keySongs));
+setAuthUI();
+renderMembers();
+renderSongs();
+renderForum();
+showRoute();
+</script>
+</body>
+</html>
