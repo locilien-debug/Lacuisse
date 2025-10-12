@@ -57,6 +57,10 @@
   .edit-only{ display:none }            /* masqué par défaut */
   .authed .edit-only{ display:inline }  /* visible si connecté */
 
+
+  <button onclick="showRoute('disciples')">Disciples</button>
+
+
   /* Chants */
   .search-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin: .6rem 0 1rem }
   input[type="search"], input[type="email"], input[type="password"], input[type="text"], textarea{
@@ -100,7 +104,16 @@
 
       <div class="card" style="margin-top:1.5rem">
         <h3>La cuisse, c’est qui ?</h3>
-        <p>hip cuisse hip cuisse hip cuisse cuisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse oh hisse hip cuisse hip cuisse hip hip hip l'élite de la tour hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip hip cuisse cuisse cuisse cuisse hip cuisse</p>
+        <p>La très élitiste et hautement éjaculante CUISSE » est composée de 4 Seigneurs et de 12 Disciples, répartis en trois catégories :
+
+3 Steeve, 
+
+3 Rubalise,
+
+6 Marc-André.
+
+Le but est d’y entrer en tant que Marc-André, puis de gravir les échelons afin d’atteindre le rang de Steeve.
+</p>
       </div>
 
       <div class="grid-2" style="margin-top:1rem">
@@ -116,13 +129,13 @@
 
       <div class="card" style="margin-top:1rem">
         <h3>Pourquoi “La Cuisse” ?</h3>
-        <p>Même moi je sais pas.</p>
+        <p>Un jour, plus précisément lors du souper savoyard du Skiingé 2025, après avoir savouré notre souper et dégusté du bon vin, nous sommes allés en téléphérique faire un bowling — et bien d’autres choses secrètes. C’est ce jour-là que la Cuisse est née.</p>
       </div>
     </section>
 
     <!-- Membres -->
-    <section data-route="/membres">
-      <h2>Les membres</h2>
+    <section data-route="/Seigneurs">
+      <h2>Les Seigneurs</h2>
       <div class="toolbar">
         <div style="display:flex; gap:.5rem; flex-wrap:wrap">
           <button class="btn btn-primary edit-only" id="addMember">Ajouter un membre</button>
@@ -134,6 +147,33 @@
       <div id="memberList" class="cards" aria-live="polite"></div>
       <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
     </section>
+
+
+    <section id="disciples" class="route" style="display:none;">
+  <h2>Les Disciples</h2>
+  <p>Les trois catégories de disciples :</p>
+  
+  <div class="disciple-category">
+    <h3>Steeve</h3>
+    <ul id="steeve-list"></ul>
+    <input id="new-steeve" placeholder="Nouveau Steeve">
+    <button onclick="addDisciple('steeve')">Ajouter</button>
+  </div>
+
+  <div class="disciple-category">
+    <h3>Rubalise</h3>
+    <ul id="rubalise-list"></ul>
+    <input id="new-rubalise" placeholder="Nouveau Rubalise">
+    <button onclick="addDisciple('rubalise')">Ajouter</button>
+  </div>
+
+  <div class="disciple-category">
+    <h3>Marc-André</h3>
+    <ul id="marcandre-list"></ul>
+    <input id="new-marcandre" placeholder="Nouveau Marc-André">
+    <button onclick="addDisciple('marcandre')">Ajouter</button>
+  </div>
+</section>
 
     <!-- Chants -->
     <section data-route="/chants">
