@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<button onclick="showRoute('disciples')">Disciples</button>
 <title>La Cuisse — Accueil, Seigneurs & Chants</title>
 <meta name="description" content="La Cuisse : accueil, Seigneurs et chansonnier (hip/cuisse).." />
 <meta name="theme-color" content="#7a1c1c" />
@@ -59,18 +58,6 @@
   .authed .edit-only{ display:inline }  /* visible si connecté */
 
 
-    /* Disciples */
-  .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin: .5rem 0 1rem }
-  .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap:1rem }
-  .member{ grid-column: span 4; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; display:flex; gap:1rem; padding:1rem; align-items:center }
-  .member img{ width:72px; height:72px; border-radius:14px; object-fit:cover; background:#222 }
-  .member h3{ margin:.2rem 0 }
-  .badges{ display:flex; gap:.35rem; flex-wrap:wrap }
-  .badge{ font-size:.75rem; padding:.2rem .5rem; border-radius:999px; background:color-mix(in oklab, var(--accent) 18%, transparent); color:#111; font-weight:700 }
-  @media (max-width: 900px){ .member{ grid-column: span 6 } }
-  @media (max-width: 640px){ .member{ grid-column: span 12 } }
-  .edit-only{ display:none }            /* masqué par défaut */
-  .authed .edit-only{ display:inline }  /* visible si connecté */
 
 
   
@@ -162,32 +149,6 @@
       <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
     </section>
 
-<!-- disciples -->
-    <section id="disciples" class="route" style="display:none;">
-  <h2>Les Disciples</h2>
-  <p>Les trois catégories de disciples :</p>
-  
-  <div class="disciple-category">
-    <h3>Steeve</h3>
-    <ul id="steeve-list"></ul>
-    <input id="new-steeve" placeholder="Nouveau Steeve">
-    <button onclick="addDisciple('steeve')">Ajouter</button>
-  </div>
-
-  <div class="disciple-category">
-    <h3>Rubalise</h3>
-    <ul id="rubalise-list"></ul>
-    <input id="new-rubalise" placeholder="Nouveau Rubalise">
-    <button onclick="addDisciple('rubalise')">Ajouter</button>
-  </div>
-
-  <div class="disciple-category">
-    <h3>Marc-André</h3>
-    <ul id="marcandre-list"></ul>
-    <input id="new-marcandre" placeholder="Nouveau Marc-André">
-    <button onclick="addDisciple('marcandre')">Ajouter</button>
-  </div>
-</section>
 
     <!-- Chants -->
     <section data-route="/chants">
