@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>La Cuisse — Accueil, Membres & Chants</title>
-<meta name="description" content="La Cuisse : accueil, membres et chansonnier (hip/cuisse).." />
+<title>La Cuisse — Accueil, Seigneurs & Chants</title>
+<meta name="description" content="La Cuisse : accueil, Seigneurs et chansonnier (hip/cuisse).." />
 <meta name="theme-color" content="#7a1c1c" />
 <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%237a1c1c"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="white">🦵</text></svg>' />
 <style>
@@ -44,7 +44,7 @@
   @media (max-width: 900px){ .grid-2,.grid-3{ grid-template-columns: 1fr } }
   .card{ background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow) }
 
-  /* Membres */
+  /* Seigneurs */
   .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin: .5rem 0 1rem }
   .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap:1rem }
   .member{ grid-column: span 4; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; display:flex; gap:1rem; padding:1rem; align-items:center }
@@ -82,7 +82,7 @@
       </a>
       <nav class="menu">
         <a class="pill" href="#/">Accueil</a>
-        <a class="pill" href="#/membres">Membres</a>
+        <a class="pill" href="#/Seigneurs">Seigneurs</a>
         <a class="pill" href="#/chants">Chants</a>
         <a class="pill" href="#/forum">Forum</a><!-- AJOUT -->
         <button id="loginBtn" class="btn btn-ghost" title="Connexion">Se connecter</button>
@@ -96,7 +96,7 @@
     <section data-route="/" class="hero">
       <span class="eyebrow">Groupe</span>
       <h1>Bienvenue sur le site (officiel) de <em style="font-style:normal; color:var(--accent)">La Cuisse</em> 🦵</h1>
-      <p class="muted">Ici tu trouveras un mot du groupe, les membres et notre chansonnier version <em>hip / cuisse</em>.</p>
+      <p class="muted">Ici tu trouveras une description du groupe, les noms des différents Seigneurs et notre chansonnier version <em>hip / cuisse</em>.</p>
       <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem">
         <button class="btn btn-soft" id="donBtn">Nous faire un don</button>
         <a class="btn btn-ghost" href="#/chants">Ouvrir le chansonnier</a>
@@ -133,7 +133,7 @@ Le but est d’y entrer en tant que Marc-André, puis de gravir les échelons af
       </div>
     </section>
 
-    <!-- Membres -->
+    <!-- Seigneurs -->
     <section data-route="/Seigneurs">
       <h2>Les Seigneurs</h2>
       <div class="toolbar">
@@ -280,7 +280,7 @@ function showRoute(){
   const hash = location.hash.replace('#','') || '/';
   document.querySelectorAll('section[data-route]').forEach(s => s.style.display = (s.dataset.route===hash)?'block':'none');
   if(hash.startsWith('/membre/')){
-    document.querySelector('section[data-route="/membres"]').style.display='block';
+    document.querySelector('section[data-route="/Seigneurs"]').style.display='block';
     renderMemberDetail(hash.split('/')[2]);
   } else {
     document.getElementById('memberDetail').style.display='none';
@@ -1206,7 +1206,7 @@ let songs = JSON.parse(localStorage.getItem(LS.keySongs) || 'null') || defaultSo
 function saveMembers(){ localStorage.setItem(LS.keyMembers, JSON.stringify(members)); renderMembers(); }
 function saveSongs(){ localStorage.setItem(LS.keySongs, JSON.stringify(songs)); renderSongs(); }
 
-/* ==== Membres ==== */
+/* ==== Seigneurs ==== */
 function renderMemberDetail(id){
   const m = members.find(x=>x.id===id);
   if(!m){ memberDetail.style.display='none'; return; }
@@ -1271,7 +1271,7 @@ document.getElementById('addMember')?.addEventListener('click', ()=> openMemberD
 document.getElementById('exportMembers')?.addEventListener('click', ()=>{
   if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
   const blob = new Blob([JSON.stringify(members, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-membres.json'; a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-Seigneurs.json'; a.click();
 });
 document.getElementById('importMembers')?.addEventListener('change', (e)=>{
   if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); e.target.value=''; return; }
