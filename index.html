@@ -156,6 +156,20 @@
       <div id="memberList" class="cards" aria-live="polite"></div>
       <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
     </section>
+ <!-- Disciples -->
+    <section data-route="/Disciples">
+      <h2>Les Disciples</h2>
+      <div class="toolbar">
+        <div style="display:flex; gap:.5rem; flex-wrap:wrap">
+          <button class="btn btn-primary edit-only" id="addMember">Ajouter un membre</button>
+          <button class="btn btn-ghost edit-only" id="exportMembers">Exporter JSON</button>
+          
+        </div>
+        <input id="memberSearch" type="search" placeholder="Rechercher un membre…" />
+      </div>
+      <div id="memberList" class="cards" aria-live="polite"></div>
+      <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
+    </section>
 
 
     <!-- Chants -->
@@ -273,7 +287,7 @@ window.addEventListener('hashchange', showRoute);
 
 /* ==== Don bouton (faux IBAN) ==== */
 document.getElementById('donBtn')?.addEventListener('click', ()=>{
-  alert('hip cuisse a toi ! IBAN : BE12 3456 7890 1234 — communication : "HIP CUISSE"');
+  alert('hip cuisse a toi ! IBAN : BE49 0637 1081 9671 — communication : "HIP CUISSE"');
 });
 
 /* ==== Données par défaut ==== */
