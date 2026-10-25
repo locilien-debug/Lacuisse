@@ -972,7 +972,7 @@ const defaults = [
   {id:'Marc-André-3', grade:'Marc-André', number:3, name:'Fox', nick:'Fus ', gradeTitle:'Marc-André 3', bio:'', photo:''}
   ];
 function load(k,fallback){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:fallback}catch{return fallback}}
-let members=load(K.members,defaultMembers),disciples=load(K.disciples,defaults),songs=load(K.songs,defaultSongs);
+let members=defaultMembers.map(m=>({...m})),disciples=defaults.map(d=>({...d})),songs=defaultSongs;
 disciples=defaults.map(d=>({...d,...(disciples.find(x=>x.grade===d.grade&&x.number===d.number)||{})}));
 let editing=false,selected=null;
 const $=id=>document.getElementById(id);
