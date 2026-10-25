@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#16130b"><title>LA CUISSE 🦵 — Le cercle</title>
+<meta name="theme-color" content="#16130b"><title>LA CUISSE 🦵</title>
 <style>
 :root{--bg:#14130f;--panel:#211e16;--panel2:#2c271b;--line:#50442a;--gold:#f5c542;--gold2:#ffe49a;--ink:#fff9e8;--muted:#c8bea4;--radius:22px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,Segoe UI,sans-serif}
@@ -954,7 +954,22 @@ hip cuisse hip hip hip`
 
 const K={members:'laCuisse_members_v2',disciples:'laCuisse_disciples_v3',songs:'laCuisse_songs_v2'};
 const grades=['Steeve','Rubalise','Mike','Marc-André'];
-const defaults=grades.flatMap(grade=>[1,2,3].map(number=>({id:grade+'-'+number,grade,number,name:'',nick:'',photo:'',bio:'',gradeTitle:''})));
+const defaults = [
+  {id:'Steeve-1', grade:'Steeve', number:1, name:'', nick:'', gradeTitle:'Steeve 1', bio:'', photo:''},
+  {id:'Steeve-2', grade:'Steeve', number:2, name:'', nick:'', gradeTitle:'Steeve 2', bio:'', photo:''},
+  {id:'Steeve-3', grade:'Steeve', number:3, name:'', nick:'', gradeTitle:'Steeve 3', bio:'', photo:''},
+
+  {id:'Rubalise-1', grade:'Rubalise', number:1, name:'', nick:'', gradeTitle:'Rubalise 1', bio:'', photo:''},
+  {id:'Rubalise-2', grade:'Rubalise', number:2, name:'', nick:'', gradeTitle:'Rubalise 2', bio:'', photo:''},
+  {id:'Rubalise-3', grade:'Rubalise', number:3, name:'', nick:'', gradeTitle:'Rubalise 3', bio:'', photo:''},
+
+  {id:'Mike-1', grade:'Mike', number:1, name:'', nick:'', gradeTitle:'Mike 1', bio:'', photo:''},
+  {id:'Mike-2', grade:'Mike', number:2, name:'', nick:'', gradeTitle:'Mike 2', bio:'', photo:''},
+  {id:'Mike-3', grade:'Mike', number:3, name:'', nick:'', gradeTitle:'Mike 3', bio:'', photo:''},
+
+  {id:'Marc-André-1', grade:'Marc-André', number:1, name:'', nick:'', gradeTitle:'Marc-André 1', bio:'', photo:''},
+  {id:'Marc-André-2', grade:'Marc-André', number:2, name:'', nick:'', gradeTitle:'Marc-André 2', bio:'', photo:''},
+  {id:'Marc-André-3', grade:'Marc-André', number:3, name:'', nick:'', gradeTitle:'Marc-André 3', bio:'', photo:''}
 function load(k,fallback){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:fallback}catch{return fallback}}
 let members=load(K.members,defaultMembers),disciples=load(K.disciples,defaults),songs=load(K.songs,defaultSongs);
 disciples=defaults.map(d=>({...d,...(disciples.find(x=>x.grade===d.grade&&x.number===d.number)||{})}));
