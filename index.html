@@ -1,295 +1,67 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>La Cuisse — Accueil, Seigneurs & Chants</title>
-<meta name="description" content="La Cuisse : accueil, Seigneurs et chansonnier (hip/cuisse).." />
-<meta name="theme-color" content="#7a1c1c" />
-<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%237a1c1c"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="white">🦵</text></svg>' />
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#16130b"><title>LA CUISSE 🦵 — Le cercle</title>
 <style>
-  :root{
-    --bg:#3a3a2f; --bg-soft:#242424; --card:#242424; --text:#ffffff; --muted:#ffffff;
-    --primary:#7a1c1c; --primary-2:#9d2a2a; --accent:#f0c419;
-    --radius:16px; --shadow:0 10px 30px rgba(255, 255, 255, 0.25); --wrap:min(1180px,92vw)
-  }
-  @media (prefers-color-scheme: light){
-    :root{ --bg:#fafbfe; --bg-soft:#f2f4fa; --card:#ffffff; --text:#12141a; --muted:#4b5563; --shadow:0 10px 24px rgba(15,17,21,.08);}
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial; background:var(--bg); color:var(--text)}
-  a{color:inherit; text-decoration:none}
-  .wrap{ width:var(--wrap); margin-inline:auto; padding-inline:1rem }
-  header.site{ position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(10px); background: color-mix(in oklab, var(--bg) 82%, transparent); border-bottom:1px solid color-mix(in oklab, var(--muted) 20%, transparent) }
-  .nav{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 0 }
-  .brand{ display:flex; align-items:center; gap:.65rem; font-weight:900; letter-spacing:.3px }
-  .brand svg{ width:28px; height:28px }
-  .menu{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap }
-  .pill{ padding:.5rem .8rem; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-weight:700 }
-  .btn{ display:inline-flex; align-items:center; gap:.5rem; padding:.8rem 1rem; border-radius:9999px; font-weight:800; border:1px solid transparent; cursor:pointer }
-  .btn-primary{ background:linear-gradient(135deg,var(--primary),var(--primary-2)); color:#fff; box-shadow:var(--shadow) }
-  .btn-ghost{ background:transparent; border-color:rgba(255,255,255,.14) }
-  .btn-soft{ background:color-mix(in oklab, var(--accent) 16%, transparent); color:#ffffff; font-weight:900 }
-
-  main{ padding-bottom:2rem }
-  section{ padding:2rem 0 }
-  .hero{ padding: 3.5rem 0 2rem }
-  .hero h1{ font-size:clamp(2rem,5vw,3rem); line-height:1.1; margin:0 0 .6rem }
-  .muted{ color:var(--muted) }
-  .eyebrow{ display:inline-block; font-weight:800; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color: var(--accent); background: color-mix(in oklab, var(--accent) 15%, transparent); padding:.3rem .6rem; border-radius:999px; margin-bottom:.6rem }
-
-  .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:1rem }
-  .grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem }
-  @media (max-width: 900px){ .grid-2,.grid-3{ grid-template-columns: 1fr } }
-  .card{ background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow) }
-
-  /* Seigneurs */
-  .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin: .5rem 0 1rem }
-  .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap:1rem }
-  .member{ grid-column: span 4; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; display:flex; gap:1rem; padding:1rem; align-items:center }
-  .member img{ width:72px; height:72px; border-radius:14px; object-fit:cover; background:#222 }
-  .member h3{ margin:.2rem 0 }
-  .badges{ display:flex; gap:.35rem; flex-wrap:wrap }
-  .badge{ font-size:.75rem; padding:.2rem .5rem; border-radius:999px; background:color-mix(in oklab, var(--accent) 18%, transparent); color:#111; font-weight:700 }
-  @media (max-width: 900px){ .member{ grid-column: span 6 } }
-  @media (max-width: 640px){ .member{ grid-column: span 12 } }
-  .edit-only{ display:none }            /* masqué par défaut */
-  .authed .edit-only{ display:inline }  /* visible si connecté */
-
-
-
-
-  
-
-
-  /* Chants */
-  .search-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin: .6rem 0 1rem }
-  input[type="search"], input[type="email"], input[type="password"], input[type="text"], textarea{
-    width:100%; padding:.8rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:var(--bg-soft); color:var(--text)
-  }
-  details.song{ background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding: .8rem 1rem; margin:.6rem 0 }
-  details.song summary{ cursor:pointer; font-weight:800 }
-  pre.lyrics{ white-space:pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: color-mix(in oklab, var(--bg) 85%, transparent); padding: .8rem 1rem; border-radius:12px }
-
-  footer{ padding:1.2rem 0; border-top:1px solid rgba(255,255,255,.08) }
-</style>
-</head>
-<body>
-  <header class="site">
-    <div class="wrap nav">
-      <a href="#/" class="brand" aria-label="Accueil">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><text x="50%" y="62%" text-anchor="middle" font-size="42">🦵</text></svg>
-        <span>La&nbsp;Cuisse</span>
-      </a>
-      <nav class="menu">
-        <a class="pill" href="#/">Accueil</a>
-        <a class="pill" href="#/Seigneurs">Seigneurs</a>
-        <a class="pill" href="#/chants">Chants</a>
-        <a class="pill" href="#/forum">Forum</a><!-- AJOUT -->
-        <button id="loginBtn" class="btn btn-ghost" title="Connexion">Se connecter</button>
-        <button id="logoutBtn" class="btn btn-ghost" style="display:none">Se déconnecter</button>
-      </nav>
-    </div>
-  </header>
-
-  <main id="app" class="wrap">
-    <!-- Accueil -->
-    <section data-route="/" class="hero">
-      <span class="eyebrow">Groupe</span>
-      <h1>Bienvenue sur le site (officiel j'ai envie de me masturber) de <em style="font-style:normal; color:var(--accent)">La Cuisse</em> 🦵</h1>
-      <p class="muted">Ici tu trouveras une description du groupe, les noms des différents Seigneurs et notre chansonnier version <em>hip / cuisse</em>.</p>
-      <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem">
-        <button class="btn btn-soft" id="donBtn">Nous faire un don</button>
-        <a class="btn btn-ghost" href="#/chants">Ouvrir le chansonnier</a>
-      </div>
-
-      <div class="card" style="margin-top:1.5rem">
-        <h3>La cuisse, c’est qui ?</h3>
-        <p>La très élitiste et hautement éjaculante CUISSE est composée de 4 Seigneurs et de 12 Disciples, répartis en Quatres catégories :
-
-3 Steeves, 
-
-3 Rubalises,
-
-3 Mikes, et enfin,
-          
-3 Marc-Andrés.
-
-</p>
-      </div>
-
-      <div class="grid-2" style="margin-top:1rem">
-        <div class="card">
-          <h3>Cantus-cuisse, c’est quoi ?</h3>
-          <p>Un évenement secret où les chants présents sur ce site sont chantés dans une cave sombre a l'abri des regards.</p>
-        </div>
-        <div class="card">
-          <h3>4h cuisse</h3>
-          <p>hip cuisse hip cuisse hip cuisse cuisse hip cuisse hip cuisse hip cuisse cuisse et pour la cuisse oh hisse et pour la cuisse ho hiss ehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hissehip cuisse hip cuisse hip cuisse cuisse et pour la cuisse ho hisse hip  hip hip cuisse cuisse cuisse cuisse hip cuisse</p>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:1rem">
-        <h3>Pourquoi “La Cuisse” ?</h3>
-        <p>Un jour, plus précisément lors du souper savoyard du Skiingé 2025, après avoir savouré notre souper et dégusté du bon vin, nous sommes allés en téléphérique faire un bowling et bien d’autres choses secrètes. C’est ce jour-là que la Cuisse est née.</p>
-      </div>
-        <div class="card" style="margin-top:1rem">
-        <h3>Hip cuisse day ?</h3>
-        <p>Le hip cuisse day est le plus beau jour de l'année car on y fête la cuisse.
-          On le fête tous les jours de l'année donc n'hésitez pas à le souhaiter à vos camarades pour renforcer vos amitiés.
-          ATTENTION, le 12 octobre sera le pire jour de votre vie car c'est le non-hip cuisse day et vous devrez pleurer de toutes vos forces.
-          
-        </p>
-      </div>
-    </section>
-
-    <!-- Seigneurs -->
-    <section data-route="/Seigneurs">
-      <h2>Les Seigneurs</h2>
-      <div class="toolbar">
-        <div style="display:flex; gap:.5rem; flex-wrap:wrap">
-          <button class="btn btn-primary edit-only" id="addMember">Ajouter un membre</button>
-          <button class="btn btn-ghost edit-only" id="exportMembers">Exporter JSON</button>
-          
-        </div>
-        <input id="memberSearch" type="search" placeholder="Rechercher un membre…" />
-      </div>
-      <div id="memberList" class="cards" aria-live="polite"></div>
-      <section id="memberDetail" class="card" style="display:none; margin-top:1rem"></section>
-    </section>
-
-
-
-    <!-- Chants -->
-    <section data-route="/chants">
-      <h2>Chansonnier</h2>
-      <div class="search-row">
-        <input id="songSearch" type="search" placeholder="Rechercher un chant…" />
-        <button class="btn btn-ghost" id="expandAll">Tout ouvrir</button>
-        <button class="btn btn-ghost" id="collapseAll">Tout fermer</button>
-        <button class="btn btn-ghost edit-only" id="exportSongs">Exporter JSON</button>
-      </div>
-      <div id="songList"></div>
-    </section>
-
-    <!-- Forum (AJOUT) -->
-    <section data-route="/forum">
-      <h2>Forum</h2>
-      <p class="muted">Tout le monde peut écrire un message. Les messages sont sauvegardés dans ton navigateur.</p>
-      <form id="forumForm" class="card" style="display:grid; gap:.6rem; margin-bottom:1rem">
-        <input id="forumAuthor" placeholder="Ton nom ou pseudo" />
-        <textarea id="forumMessage" rows="4" placeholder="Ton message…"></textarea>
-        <div style="display:flex; justify-content:flex-end">
-          <button class="btn btn-primary" type="submit">Publier</button>
-        </div>
-      </form>
-      <div id="forumList" style="display:grid; gap:.6rem"></div>
-    </section>
-  </main>
-
-  <footer class="wrap"><small class="muted">© <span id="year"></span> La Cuisse — Site statique.</small></footer>
-
-  <!-- Connexion -->
-  <dialog id="loginDialog" style="border:none; border-radius:16px; padding:0; width:min(520px,96vw)">
-    <form id="loginForm" method="dialog" class="card" style="margin:0">
-      <h3 style="margin-top:0">Connexion</h3>
-      <p class="muted" style="margin-top:-.4rem">Entre l’email et le mot de passe fournis par l’admin.</p>
-      <div class="grid-3" style="grid-template-columns:1fr">
-        <input type="email" id="email" placeholder="email@exemple.com" required />
-        <input type="password" id="password" placeholder="Mot de passe" required />
-      </div>
-      <div style="display:flex; justify-content:flex-end; gap:.5rem; margin-top:.6rem">
-        <button class="btn btn-ghost" value="cancel">Annuler</button>
-        <button class="btn btn-primary" id="doLogin" value="default">Se connecter</button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- Édition membre -->
-  <dialog id="memberDialog" style="border:none; border-radius:16px; padding:0; width:min(680px,96vw)">
-    <form id="memberForm" method="dialog" class="card" style="margin:0">
-      <h3 id="dialogTitle" style="margin-top:0">Ajouter/éditer un membre</h3>
-      <div class="grid-3" style="grid-template-columns: 1fr 1fr">
-        <div><label>Nom</label><input name="name" required placeholder="Prénom Nom" /></div>
-        <div><label>Surnom</label><input name="nick" placeholder="Alias" /></div>
-        <div style="grid-column: span 2"><label>Rôles / Badges (séparés par des virgules)</label><input name="badges" placeholder="Président, Chants, Trésorier" /></div>
-        <div style="grid-column: span 2"><label>Photo (URL)</label><input name="photo" placeholder="https://…" /></div>
-        <div style="grid-column: span 2"><label>Description / Bio</label><textarea name="bio" rows="5" placeholder="Présente-toi…"></textarea></div>
-      </div>
-      <div style="display:flex; justify-content:flex-end; gap:.5rem; margin-top:.6rem">
-        <button class="btn btn-ghost" value="cancel">Annuler</button>
-        <button class="btn btn-primary" id="saveMember" value="default">Enregistrer</button>
-      </div>
-    </form>
-  </dialog>
-
+:root{--bg:#14130f;--panel:#211e16;--panel2:#2c271b;--line:#50442a;--gold:#f5c542;--gold2:#ffe49a;--ink:#fff9e8;--muted:#c8bea4;--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,Segoe UI,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 90% 0%,#5b431b55,transparent 48%);z-index:-1}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+header{position:sticky;top:0;z-index:10;background:#14130fe8;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;font-weight:1000;letter-spacing:.08em;font-size:1.3rem}.logo span:first-child{font-size:2rem}
+.links{display:flex;gap:6px;flex-wrap:wrap}.links a{padding:9px 13px;border-radius:12px;font-weight:750;color:var(--muted)}.links a.active,.links a:hover{background:var(--gold);color:#17120a}
+.wrap{max-width:1180px;margin:auto;padding:0 22px}.view{display:none;animation:enter .25s ease}.view.active{display:block}@keyframes enter{from{opacity:0;transform:translateY(7px)}}
+.hero{padding:90px 0 60px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.eyebrow{color:var(--gold);font-weight:900;letter-spacing:.2em;text-transform:uppercase;font-size:.76rem}
+h1{font-size:clamp(3.5rem,10vw,8rem);letter-spacing:-.07em;line-height:.9;margin:20px 0}h1 em{color:var(--gold);font-style:normal}h2{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;letter-spacing:-.05em;margin:10px 0 16px}
+.lead{font-size:1.15rem;color:var(--muted);max-width:620px}.hero-art{min-height:340px;border:1px solid #ad853f;border-radius:40px;display:grid;place-items:center;font-size:clamp(9rem,22vw,17rem);background:radial-gradient(circle,#c38c28 0%,#5d4218 38%,#221d13 75%);box-shadow:0 20px 100px #d49b2926;transform:rotate(3deg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);padding:12px 18px;border-radius:13px;background:var(--panel2);color:var(--ink);font-weight:800;gap:8px}.btn.gold{background:var(--gold);color:#1b1609;border-color:var(--gold)}.btn:hover{filter:brightness(1.12)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.section-head{margin:50px 0 24px}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.panel{background:linear-gradient(145deg,var(--panel),#1c1a14);border:1px solid var(--line);border-radius:var(--radius);padding:24px}.panel h3{margin:0 0 8px;font-size:1.2rem}.panel p{margin:0;color:var(--muted)}.wide{grid-column:span 2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:35px 0}.stat{padding:24px;border-top:2px solid var(--gold);background:#282216;border-radius:14px}.stat strong{display:block;color:var(--gold);font-size:2.3rem;line-height:1.2}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0}.toolbar input{max-width:350px}
+input,textarea,select{background:#17150f;color:var(--ink);border:1px solid #71603a;border-radius:12px;padding:12px;width:100%}textarea{min-height:110px}label{display:block;font-weight:700;margin:10px 0 5px}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.person{display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px}.avatar{width:86px;height:100px;flex-shrink:0;object-fit:cover;border-radius:14px;background:#43341b}.person h3{margin:0;font-size:1.08rem}.person p{margin:5px 0;color:var(--muted);font-size:.88rem}.tag{display:inline-block;color:#211807;background:var(--gold);font-size:.72rem;font-weight:900;padding:3px 9px;border-radius:30px;margin:6px 0}
+.grade{margin:40px 0}.grade-head{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}.grade-head h3{font-size:1.7rem;margin:0}.grade-head span{color:var(--gold)}
+.song{border:1px solid var(--line);background:var(--panel);border-radius:16px;margin:10px 0;overflow:hidden}.song summary{padding:16px 20px;cursor:pointer;font-weight:800}.song[open] summary{color:var(--gold);border-bottom:1px solid var(--line)}.lyrics{padding:16px 20px;white-space:pre-wrap;font-family:inherit;line-height:1.9;color:#eee4c9;overflow-wrap:anywhere}
+footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 0;color:var(--muted)}
+dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);color:var(--ink);width:min(520px,94vw);max-height:90vh;overflow:auto;padding:25px}dialog::backdrop{background:#000b}
+.admin{display:none}body.editing .admin{display:inline-flex}.note{border-left:3px solid var(--gold);padding:12px 16px;background:#f5c54210;color:var(--muted);border-radius:6px}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding:48px 0}.hero-art{min-height:230px;font-size:10rem}.grid,.people{grid-template-columns:repeat(2,minmax(0,1fr))}.wide{grid-column:auto}}
+@media(max-width:570px){nav{padding:12px}.links{width:100%;justify-content:space-between}.links a{font-size:.85rem;padding:8px}.grid,.people,.stats{grid-template-columns:1fr}.person{align-items:center}.wrap{padding:0 16px}}
+</style></head><body>
+<header><nav><a class="logo" href="#/"><span>🦵</span><span>LA CUISSE</span></a><div class="links">
+<a href="#/" data-nav>Accueil</a><a href="#/seigneurs" data-nav>Seigneurs</a><a href="#/disciples" data-nav>Disciples</a><a href="#/chants" data-nav>Chants</a>
+</div><button class="btn" id="authBtn">🔒 Édition</button></nav></header>
+<main class="wrap">
+<section class="view" data-view="/">
+<div class="hero"><div><div class="eyebrow">Le cercle • Hip cuisse</div><h1>LA<br><em>CUISSE.</em></h1>
+<p class="lead">Quatre Seigneurs. Douze Disciples. Un esprit. Bienvenue dans l'univers hautement sélect de La Cuisse.</p>
+<div class="actions"><a class="btn gold" href="#/disciples">Découvrir les Disciples →</a><a class="btn" href="#/chants">Le chansonnier ♫</a></div></div><div class="hero-art" aria-label="Emblème de La Cuisse">🦵</div></div>
+<div class="stats"><div class="stat"><strong>04</strong>Seigneurs</div><div class="stat"><strong>12</strong>Disciples</div><div class="stat"><strong>∞</strong>Hip cuisse</div></div>
+<div class="section-head"><div class="eyebrow">Notre histoire</div><h2>Le mythe de la Cuisse</h2></div>
+<div class="grid"><article class="panel wide"><h3>La Cuisse, c’est qui ?</h3><p>La très élitiste et hautement éjaculante CUISSE est composée de 4 Seigneurs et de 12 Disciples, répartis en quatre catégories : 3 Steeves, 3 Rubalises, 3 Mikes et 3 Marc-Andrés.</p></article>
+<article class="panel"><h3>Cantus-cuisse, c’est quoi ?</h3><p>Un événement secret où les chants présents sur ce site sont chantés dans une cave sombre à l'abri des regards.</p></article>
+<article class="panel"><h3>Pourquoi « La Cuisse » ?</h3><p>Un jour, plus précisément lors du souper savoyard du Skiingé 2025, après avoir savouré notre souper et dégusté du bon vin, nous sommes allés en téléphérique faire un bowling et bien d’autres choses secrètes. C’est ce jour-là que la Cuisse est née.</p></article>
+<article class="panel"><h3>Hip cuisse day ?</h3><p>Le hip cuisse day est le plus beau jour de l'année car on y fête la cuisse. On le fête tous les jours de l'année donc n'hésitez pas à le souhaiter à vos camarades pour renforcer vos amitiés. ATTENTION, le 12 octobre sera le pire jour de votre vie car c'est le non-hip cuisse day et vous devrez pleurer de toutes vos forces.</p></article>
+<article class="panel"><h3>4h cuisse</h3><p>Hip cuisse hip cuisse hip cuisse cuisse ! Et pour la cuisse, oh hisse !</p></article></div>
+<div class="actions"><button class="btn gold" id="donBtn">🦵 Nous faire un don</button></div>
+</section>
+<section class="view" data-view="/seigneurs"><div class="section-head"><div class="eyebrow">Le sommet du cercle</div><h2>Les Seigneurs 🏆</h2><p class="lead">Les quatre figures fondatrices de La Cuisse.</p></div><div class="toolbar"><input id="memberSearch" type="search" placeholder="Rechercher un Seigneur…"><button class="btn admin" id="addMember">+ Ajouter</button></div><div id="memberList" class="people"></div></section>
+<section class="view" data-view="/disciples"><div class="section-head"><div class="eyebrow">La relève</div><h2>Les Disciples 🦵</h2><p class="lead">Quatre lignées. Trois places par lignée. Chaque disciple possède sa fiche, son rang et son histoire.</p></div>
+<p class="note">Les descriptions de grades qui n'étaient pas clairement identifiables sont laissées à compléter depuis le mode Édition.</p>
+<div class="toolbar"><input id="discipleSearch" type="search" placeholder="Nom, catégorie ou rang…"><button class="btn admin" id="exportBtn">Exporter les données</button></div><div id="discipleList"></div></section>
+<section class="view" data-view="/chants"><div class="section-head"><div class="eyebrow">Le patrimoine musical</div><h2>Le chansonnier 🎶</h2><p class="lead">Tous les chants du site original, réunis au même endroit.</p></div><div class="toolbar"><input id="songSearch" type="search" placeholder="Rechercher un chant…"><div class="actions"><button class="btn" id="openSongs">Tout ouvrir</button><button class="btn" id="closeSongs">Tout fermer</button></div></div><div id="songList"></div></section>
+</main><footer><div class="wrap">🦵 LA CUISSE · Hip cuisse, aujourd'hui et toujours. · <span id="year"></span></div></footer>
+<dialog id="authDialog"><form id="authForm"><h2>Mode édition</h2><p class="muted">Édition locale de démonstration. Ne constitue pas une authentification sécurisée.</p><label>Mot de passe</label><input type="password" id="password" required><div class="actions"><button class="btn gold">Déverrouiller</button><button class="btn" type="button" data-close="authDialog">Annuler</button></div></form></dialog>
+<dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label>Surnom</label><input name="nick"><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label>Intitulé du grade (disciple)</label><input name="gradeTitle" placeholder="Ex. : rang, titre, fonction"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
 <script>
-/* ==== Auth (simple front) ==== */
-const LS = {
-  keyMembers: 'laCuisse_members_v2',
-  keySongs: 'laCuisse_songs_v2',
-  keyAuth: 'laCuisse_authed_v1',
-  keyForum: 'laCuisse_forum_v1' // AJOUT
-};
-const loginBtn = document.getElementById('loginBtn');
-const logoutBtn = document.getElementById('logoutBtn');
-const loginDialog = document.getElementById('loginDialog');
-const loginForm = document.getElementById('loginForm');
-
-function setAuthUI(){
-  const authed = localStorage.getItem(LS.keyAuth)==='1';
-  document.body.classList.toggle('authed', authed);
-  loginBtn.style.display = authed ? 'none' : 'inline-flex';
-  logoutBtn.style.display = authed ? 'inline-flex' : 'none';
-}
-loginBtn?.addEventListener('click', ()=> loginDialog.showModal());
-logoutBtn?.addEventListener('click', ()=>{
-  localStorage.removeItem(LS.keyAuth);
-  setAuthUI();
-});
-loginForm?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  // Très simple: n'importe quel email + mot de passe "cuisse" autorise
-  const pass = document.getElementById('password').value.trim();
-  if(pass === 'cuisse2024'){
-    localStorage.setItem(LS.keyAuth, '1');
-    setAuthUI();
-    loginDialog.close();
-  }else{
-    alert('Mot de passe incorrect.');
-  }
-});
-
-/* ==== Router mini (hash) ==== */
-function showRoute(){
-  const hash = location.hash.replace('#','') || '/';
-  document.querySelectorAll('section[data-route]').forEach(s => s.style.display = (s.dataset.route===hash)?'block':'none');
-  if(hash.startsWith('/membre/')){
-    document.querySelector('section[data-route="/Seigneurs"]').style.display='block';
-    renderMemberDetail(hash.split('/')[2]);
-  } else {
-    document.getElementById('memberDetail').style.display='none';
-  }
-}
-window.addEventListener('hashchange', showRoute);
-
-/* ==== Don bouton (faux IBAN) ==== */
-document.getElementById('donBtn')?.addEventListener('click', ()=>{
-  alert('hip cuisse a toi ! IBAN : BE49 0637 1081 9671 — communication : "HIP CUISSE"');
-});
-
-/* ==== Données par défaut ==== */
 const defaultMembers = [
   { id: crypto.randomUUID(), name:'Aurélien Locigno', nick:'Nicolas',   badges:['Chants'], photo:'', bio:"webmaster de La Cuisse."},
   { id: crypto.randomUUID(), name:'Simon Paillet',   nick:'Elvis',     badges:['Chants'], photo:'', bio:"J'ai la même teub que Louis ronlez." },
   { id: crypto.randomUUID(), name:'Tim Broers',       nick:'Flavien 2', badges:['Org'], photo:'', bio:"Dominique Pinon." },
   { id: crypto.randomUUID(), name:'Louis Ronlez',     nick:'Flavien 1', badges:['Org'], photo:'', bio:"J'ai la même teub que Simon paillet." },
 ];
-
-
-/* ==== Chants (tu avais déjà tout mis, je laisse inchangé) ==== */
- const defaultSongs = [
+const defaultSongs = [
     {
       title: "51 je t'aime",
       lyrics: `
@@ -1180,186 +952,81 @@ hip cuisse hip hip hip`
     }
   ];
 
-/* ==== Stockage / état ==== */
-const memberList = document.getElementById('memberList');
-const memberDetail = document.getElementById('memberDetail');
-const memberSearch = document.getElementById('memberSearch');
-let members = JSON.parse(localStorage.getItem(LS.keyMembers) || 'null') || defaultMembers;
-
-const songList = document.getElementById('songList');
-const songSearch = document.getElementById('songSearch');
-let songs = JSON.parse(localStorage.getItem(LS.keySongs) || 'null') || defaultSongs;
-
-function saveMembers(){ localStorage.setItem(LS.keyMembers, JSON.stringify(members)); renderMembers(); }
-function saveSongs(){ localStorage.setItem(LS.keySongs, JSON.stringify(songs)); renderSongs(); }
-
-/* ==== Seigneurs ==== */
-function renderMemberDetail(id){
-  const m = members.find(x=>x.id===id);
-  if(!m){ memberDetail.style.display='none'; return; }
-  memberDetail.style.display='block';
-  memberDetail.innerHTML = `
-    <div style="display:grid; grid-template-columns: 120px 1fr; gap:1rem; align-items:start">
-      <img src="${m.photo||'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2236%22>🦵</text></svg>'}" alt="Photo de ${m.name}" style="width:120px; height:120px; border-radius:16px; object-fit:cover; background:#222"/>
-      <div>
-        <h3 style="margin:.2rem 0">${m.name} <span class="muted">${m.nick?`(${m.nick})`:''}</span></h3>
-        <div class="badges">${(m.badges||[]).map(b=>`<span class='badge'>${b}</span>`).join('')}</div>
-        <p style="margin-top:.6rem">${m.bio||'<span class="muted">Aucune description</span>'}</p>
-        <div class="edit-only" style="display:flex; gap:.5rem; margin-top:.6rem">
-          <button class="btn btn-ghost" id="editThis">✏️ Éditer</button>
-        </div>
-      </div>
-    </div>`;
-  document.getElementById('editThis')?.addEventListener('click', ()=> openMemberDialog(m));
+const K={members:'laCuisse_members_v2',disciples:'laCuisse_disciples_v3',songs:'laCuisse_songs_v2'};
+const grades=['Steeve','Rubalise','Mike','Marc-André'];
+const defaults=grades.flatMap(grade=>[1,2,3].map(number=>({id:grade+'-'+number,grade,number,name:'',nick:'',photo:'',bio:'',gradeTitle:''})));
+function load(k,fallback){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:fallback}catch{return fallback}}
+let members=load(K.members,defaultMembers),disciples=load(K.disciples,defaults),songs=load(K.songs,defaultSongs);
+disciples=defaults.map(d=>({...d,...(disciples.find(x=>x.grade===d.grade&&x.number===d.number)||{})}));
+let editing=false,selected=null;
+const $=id=>document.getElementById(id);
+const fallback='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="120"><rect width="100" height="120" rx="14" fill="#59451d"/><text x="50" y="76" font-size="54" text-anchor="middle">🦵</text></svg>');
+function safePhoto(url){try{const u=new URL(url);return ['https:','http:'].includes(u.protocol)?u.href:fallback}catch{return fallback}}
+function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function personCard(p,type){
+ const card=el('article','person'),img=el('img','avatar');img.src=safePhoto(p.photo);img.alt='Portrait de '+(p.name||p.grade||'membre');img.onerror=()=>{img.onerror=null;img.src=fallback};
+ const info=el('div'),title=el('h3','',p.name||(type==='disciple'?p.grade+' '+p.number:'Seigneur')),tag=el('span','tag',type==='disciple'?(p.gradeTitle||p.grade+' '+p.number):'SEIGNEUR');
+ info.append(title,tag);
+ if(p.nick)info.append(el('p','',p.nick));
+ if(p.bio)info.append(el('p','',p.bio));
+ card.append(img,info);
+ if(editing){const b=el('button','btn','✏️');b.type='button';b.title='Modifier la fiche';b.onclick=()=>editPerson(p,type);card.append(b)}
+ return card
 }
 function renderMembers(){
-  const q = (memberSearch.value||'').toLowerCase();
-  memberList.innerHTML = '';
-  members
-    .filter(m=> [m.name,m.nick,(m.badges||[]).join(' ')].join(' ').toLowerCase().includes(q))
-    .forEach(m =>{
-      const el = document.createElement('article'); el.className='member';
-      el.innerHTML = `
-        <img src="${m.photo||'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2236%22>🦵</text></svg>'}" alt="Photo de ${m.name}">
-        <div style="flex:1">
-          <h3><a href="#/membre/${m.id}">${m.name}</a> <span class="muted">${m.nick?`(${m.nick})`:''}</span></h3>
-          <div class="badges">${(m.badges||[]).map(b=>`<span class='badge'>${b}</span>`).join('')}</div>
-        </div>
-        <div class="edit-only" style="display:flex; gap:.4rem">
-          <button class="btn btn-ghost" aria-label="Éditer" data-action="edit">✏️</button>
-          <button class="btn btn-ghost" aria-label="Supprimer" data-action="delete">🗑️</button>
-        </div>`;
-      const editBtn = el.querySelector('[data-action="edit"]');
-      const delBtn  = el.querySelector('[data-action="delete"]');
-      editBtn?.addEventListener('click', ()=> openMemberDialog(m));
-      // SECURISATION : refus si pas connecté
-      delBtn?.addEventListener('click', ()=>{
-        if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
-        if(confirm('Supprimer ce membre ?')){ members = members.filter(x=>x.id!==m.id); saveMembers(); }
-      });
-      memberList.appendChild(el);
-    });
+ const root=$('memberList');root.replaceChildren();const q=$('memberSearch').value.toLocaleLowerCase();
+ members.filter(p=>[p.name,p.nick,p.bio].join(' ').toLocaleLowerCase().includes(q)).forEach(p=>root.append(personCard(p,'member')));
 }
-const memberDialog = document.getElementById('memberDialog');
-const memberForm = document.getElementById('memberForm');
-function openMemberDialog(existing){
-  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
-  memberForm.reset();
-  memberForm.dataset.editId = existing?.id || '';
-  memberForm.name.value = existing?.name || '';
-  memberForm.nick.value = existing?.nick || '';
-  memberForm.badges.value = (existing?.badges||[]).join(', ');
-  memberForm.photo.value = existing?.photo || '';
-  memberForm.bio.value = existing?.bio || '';
-  document.getElementById('dialogTitle').textContent = existing? 'Éditer un membre' : 'Ajouter un membre';
-  memberDialog.showModal();
+function renderDisciples(){
+ const root=$('discipleList');root.replaceChildren();const q=$('discipleSearch').value.toLocaleLowerCase();
+ for(const grade of grades){
+ const list=disciples.filter(p=>p.grade===grade&&[p.name,p.nick,p.bio,p.gradeTitle,p.grade,p.number].join(' ').toLocaleLowerCase().includes(q));
+ if(!list.length)continue;
+ const section=el('section','grade'),head=el('div','grade-head');head.append(el('h3','',grade+'s'),el('span','','· 3 rangs'));section.append(head);
+ const cards=el('div','people');list.sort((a,b)=>a.number-b.number).forEach(p=>cards.append(personCard(p,'disciple')));section.append(cards);root.append(section)
+ }
 }
-document.getElementById('addMember')?.addEventListener('click', ()=> openMemberDialog());
-document.getElementById('exportMembers')?.addEventListener('click', ()=>{
-  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
-  const blob = new Blob([JSON.stringify(members, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-Seigneurs.json'; a.click();
-});
-document.getElementById('importMembers')?.addEventListener('change', (e)=>{
-  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); e.target.value=''; return; }
-  const file = e.target.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = ()=>{ try{ members = JSON.parse(r.result); saveMembers(); } catch(err){ alert('Fichier invalide'); } };
-  r.readAsText(file);
-});
-memberForm?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
-  const id = memberForm.dataset.editId || crypto.randomUUID();
-  const m = {
-    id,
-    name: memberForm.name.value.trim(),
-    nick: memberForm.nick.value.trim(),
-    badges: memberForm.badges.value.split(',').map(s=>s.trim()).filter(Boolean),
-    photo: memberForm.photo.value.trim(),
-    bio: memberForm.bio.value.trim()
-  };
-  if(!m.name){ alert('Nom requis'); return; }
-  const exists = members.some(x=>x.id===id);
-  if(exists) members = members.map(x=> x.id===id? m : x); else members = [m, ...members];
-  const current = location.hash.startsWith('#/membre/') ? location.hash.split('/')[2] : null;
-  if(current && current===id) renderMemberDetail(id);
-  saveMembers(); memberDialog.close();
-});
-memberForm?.addEventListener('close', ()=> memberForm.reset());
-document.addEventListener('click', (e)=>{ if(e.target === memberDialog) memberDialog.close(); });
-memberSearch?.addEventListener('input', renderMembers);
-
-/* ==== Chants ==== */
 function renderSongs(){
-  const q = (songSearch.value||'').toLowerCase();
-  songList.innerHTML = '';
-  songs.filter(s => s.title.toLowerCase().includes(q)).forEach((s)=>{
-    const d = document.createElement('details'); d.className='song';
-    d.innerHTML = `<summary>${s.title}</summary><pre class="lyrics">${s.lyrics}</pre>`;
-    songList.appendChild(d);
-  });
+ const root=$('songList');root.replaceChildren();const q=$('songSearch').value.toLocaleLowerCase();
+ songs.filter(s=>s.title.toLocaleLowerCase().includes(q)).forEach(s=>{
+ const d=el('details','song'),summary=el('summary','',s.title),body=el('div','lyrics',s.lyrics);d.append(summary,body);root.append(d)
+ })
 }
-songSearch?.addEventListener('input', renderSongs);
-document.getElementById('expandAll')?.addEventListener('click', ()=> document.querySelectorAll('details.song').forEach(d=> d.open = true));
-document.getElementById('collapseAll')?.addEventListener('click', ()=> document.querySelectorAll('details.song').forEach(d=> d.open = false));
-document.getElementById('exportSongs')?.addEventListener('click', ()=>{
-  if(localStorage.getItem(LS.keyAuth)!=='1'){ alert('Réservé aux connectés.'); return; }
-  const blob = new Blob([JSON.stringify(songs, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'la-cuisse-chants.json'; a.click();
-});
-
-/* ==== Forum (AJOUT) ==== */
-const forumList = document.getElementById('forumList');
-const forumForm = document.getElementById('forumForm');
-const forumAuthor = document.getElementById('forumAuthor');
-const forumMessage = document.getElementById('forumMessage');
-let forum = JSON.parse(localStorage.getItem(LS.keyForum) || '[]');
-
-function saveForum(){ localStorage.setItem(LS.keyForum, JSON.stringify(forum)); renderForum(); }
-function renderForum(){
-  if(!forumList) return;
-  forumList.innerHTML = '';
-  if(forum.length===0){
-    forumList.innerHTML = `<div class="card muted">Aucun message pour l'instant. Écris le premier !</div>`;
-    return;
-  }
-  forum.slice().reverse().forEach(post=>{
-    const box = document.createElement('article');
-    box.className = 'card';
-    box.innerHTML = `
-      <div style="display:flex; align-items:center; gap:.6rem">
-        <strong>${post.author ? escapeHTML(post.author) : 'Anonyme'}</strong>
-        <span class="muted" style="font-size:.85em">· ${new Date(post.date).toLocaleString()}</span>
-      </div>
-      <p style="margin:.6rem 0 0">${escapeHTML(post.message)}</p>
-    `;
-    forumList.appendChild(box);
-  });
+function route(){
+ const path=decodeURI(location.hash.slice(1))||'/';const current=['/','/seigneurs','/disciples','/chants'].includes(path)?path:'/';
+ document.querySelectorAll('[data-view]').forEach(n=>n.classList.toggle('active',n.dataset.view===current));
+ document.querySelectorAll('[data-nav]').forEach(n=>n.classList.toggle('active',n.getAttribute('href')==='#'+current));
+ window.scrollTo({top:0,behavior:'instant'})
 }
-function escapeHTML(s=''){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-forumForm?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const author = forumAuthor.value.trim() || 'Anonyme';
-  const message = forumMessage.value.trim();
-  if(!message){ alert('Message vide.'); return; }
-  forum.push({ id: crypto.randomUUID(), author, message, date: Date.now() });
-  forumAuthor.value = ''; forumMessage.value = '';
-  saveForum();
+function setEditing(v){editing=v;document.body.classList.toggle('editing',v);$('authBtn').textContent=v?'🔓 Quitter édition':'🔒 Édition';renderMembers();renderDisciples()}
+function editPerson(p,type){
+ selected={id:p.id,type};const f=$('editForm');f.elements.personName.value=p.name||'';f.elements.nick.value=p.nick||'';f.elements.photo.value=p.photo||'';f.elements.bio.value=p.bio||'';f.elements.gradeTitle.value=p.gradeTitle||'';
+ f.elements.gradeTitle.parentElement && (f.elements.gradeTitle.disabled=type!=='disciple');
+ $('editTitle').textContent='Modifier · '+(p.name||p.grade+' '+p.number);$('editDialog').showModal()
+}
+$('editForm').addEventListener('submit',e=>{
+ e.preventDefault();if(!editing||!selected)return;
+ const a=selected.type==='disciple'?disciples:members,p=a.find(x=>x.id===selected.id),f=e.currentTarget;
+ if(!p)return;
+ p.name=f.elements.personName.value.trim();p.nick=f.elements.nick.value.trim();p.photo=f.elements.photo.value.trim();p.bio=f.elements.bio.value.trim();
+ if(selected.type==='disciple')p.gradeTitle=f.elements.gradeTitle.value.trim();
+ localStorage.setItem(selected.type==='disciple'?K.disciples:K.members,JSON.stringify(a));
+ $('editDialog').close();renderMembers();renderDisciples()
 });
-
-/* ==== Init ==== */
-document.getElementById('year').textContent = new Date().getFullYear();
-if(!localStorage.getItem(LS.keyMembers)) localStorage.setItem(LS.keyMembers, JSON.stringify(defaultMembers));
-if(!localStorage.getItem(LS.keySongs)) localStorage.setItem(LS.keySongs, JSON.stringify(defaultSongs));
-members = JSON.parse(localStorage.getItem(LS.keyMembers));
-songs = JSON.parse(localStorage.getItem(LS.keySongs));
-setAuthUI();
-renderMembers();
-renderSongs();
-renderForum();
-showRoute();
-</script>
-</body>
-</html>
+$('authBtn').onclick=()=>editing?setEditing(false):$('authDialog').showModal();
+$('authForm').onsubmit=e=>{e.preventDefault();if($('password').value==='cuisse2024'){setEditing(true);$('authDialog').close();$('password').value=''}else alert('Mot de passe incorrect.')};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
+$('addMember').onclick=()=>{
+ const p={id:crypto.randomUUID(),name:'Nouveau Seigneur',nick:'',photo:'',bio:''};members.push(p);localStorage.setItem(K.members,JSON.stringify(members));renderMembers();editPerson(p,'member')
+};
+$('exportBtn').onclick=()=>{
+ const blob=new Blob([JSON.stringify({members,disciples,songs},null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='la-cuisse-sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+};
+$('memberSearch').oninput=renderMembers;$('discipleSearch').oninput=renderDisciples;$('songSearch').oninput=renderSongs;
+$('openSongs').onclick=()=>document.querySelectorAll('.song').forEach(x=>x.open=true);
+$('closeSongs').onclick=()=>document.querySelectorAll('.song').forEach(x=>x.open=false);
+$('donBtn').onclick=()=>alert('Hip cuisse à toi ! IBAN : BE49 0637 1081 9671 — communication : HIP CUISSE');
+$('year').textContent=new Date().getFullYear();
+window.addEventListener('hashchange',route);renderMembers();renderDisciples();renderSongs();route();
+</script></body></html>
