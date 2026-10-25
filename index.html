@@ -970,6 +970,7 @@ const defaults = [
   {id:'Marc-André-1', grade:'Marc-André', number:1, name:'', nick:'', gradeTitle:'Marc-André 1', bio:'', photo:''},
   {id:'Marc-André-2', grade:'Marc-André', number:2, name:'', nick:'', gradeTitle:'Marc-André 2', bio:'', photo:''},
   {id:'Marc-André-3', grade:'Marc-André', number:3, name:'', nick:'', gradeTitle:'Marc-André 3', bio:'', photo:''}
+  ];
 function load(k,fallback){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:fallback}catch{return fallback}}
 let members=load(K.members,defaultMembers),disciples=load(K.disciples,defaults),songs=load(K.songs,defaultSongs);
 disciples=defaults.map(d=>({...d,...(disciples.find(x=>x.grade===d.grade&&x.number===d.number)||{})}));
