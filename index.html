@@ -53,6 +53,27 @@ dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);c
 <section class="view" data-view="/chants"><div class="section-head"><div class="eyebrow">Le patrimoine musical</div><h2>Le chansonnier 🎶</h2><p class="lead">Tous les chants du site original, réunis au même endroit.</p></div><div class="toolbar"><input id="songSearch" type="search" placeholder="Rechercher un chant…"><div class="actions"><button class="btn" id="openSongs">Tout ouvrir</button><button class="btn" id="closeSongs">Tout fermer</button></div></div><div id="songList"></div></section>
 </main><footer><div class="wrap">🦵 LA CUISSE · Hip cuisse, j'ai envie de me masturber. · <span id="year"></span></div></footer>
 <dialog id="detailDialog" class="detail-dialog" aria-labelledby="detailName"><button type="button" class="btn detail-close" id="closeDetail">✕ Fermer</button><div class="detail-head"><img id="detailPhoto" class="detail-photo" alt="Portrait"><div class="detail-info"><div class="eyebrow" id="detailCategory"></div><h2 id="detailName"></h2><span class="tag" id="detailRole"></span><div class="detail-label" id="detailNickLabel">Pseudo</div><div id="detailNick"></div><div id="detailNick2Wrap" hidden><div class="detail-label">Deuxième pseudo</div><div id="detailNick2"></div></div></div></div><div class="detail-label">Description / biographie</div><p class="detail-bio" id="detailBio"></p></dialog>
+<div class="panel" style="margin:25px 0;">
+      <p>IBAN</p>
+      <h3>BE49 0637 1081 9671</h3>
+
+      <p style="margin-top:20px;">Communication</p>
+      <h3>HIP CUISSE</h3>
+    </div>
+
+    <div class="actions" style="justify-content:center;">
+      <button class="btn gold" type="button"
+        onclick="navigator.clipboard.writeText('BE49063710819671')">
+        📋 Copier l'IBAN
+      </button>
+
+      <button class="btn" type="button" data-close="donDialog">
+        Fermer
+      </button>
+    </div>
+
+  </div>
+</dialog>
 <dialog id="authDialog"><form id="authForm"><h2>Mode édition</h2><p class="muted">Prévisualisation locale uniquement : pour modifier le site pour tout le monde, change les fiches dans index.html sur GitHub. Ce mot de passe n'est pas une sécurité réelle.</p><label>Mot de passe</label><input type="password" id="password" required><div class="actions"><button class="btn gold">Déverrouiller</button><button class="btn" type="button" data-close="authDialog">Annuler</button></div></form></dialog>
 <dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label id="nickLabel">Pseudo</label><input name="nick"><div id="nick2Field" hidden><label>Deuxième pseudo (Seigneur uniquement)</label><input name="nick2"></div><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label id="roleLabel">Rôle / grade</label><input name="gradeTitle" placeholder="Ex. : Webmaster, Chants, Steeve 1"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
 <script>
@@ -968,7 +989,7 @@ const defaults = [
 
   {id:'Rubalise-1', grade:'Rubalise', number:1, name:'Wegria', nick:'Anus ', gradeTitle:'Rubalise 1', bio:'', photo:''},
   {id:'Rubalise-2', grade:'Rubalise', number:2, name:'Miller', nick:'Emmachapelius ', gradeTitle:'Rubalise 2', bio:'', photo:''},
-  {id:'Rubalise-3', grade:'Rubalise', number:3, name:'Vandyck', nick:'MDMus', gradeTitle:'Rubalise 3', bio:'', photo:''},
+  {id:'Rubalise-3', grade:'Rubalise', number:3, name:'Vandyck', nick:'MDMus', gradeTitle:'Rubalise 3', bio:'Ancien largement le plus emblématique du CB Ingé, revit une seconde jeunesse grâce à la Noble, très Prestigieuse et hautement Jalousée Cuisse', photo:''},
 
   {id:'Mike-1', grade:'Mike', number:1, name:'Leruth', nick:'Minibus ', gradeTitle:'Mike 1', bio:'', photo:''},
   {id:'Mike-2', grade:'Mike', number:2, name:'à déterminer', nick:'', gradeTitle:'Mike 2', bio:'', photo:''},
@@ -1079,7 +1100,7 @@ $('exportBtn').onclick=()=>{
 $('memberSearch').oninput=renderMembers;$('discipleSearch').oninput=renderDisciples;$('songSearch').oninput=renderSongs;
 $('openSongs').onclick=()=>document.querySelectorAll('.song').forEach(x=>x.open=true);
 $('closeSongs').onclick=()=>document.querySelectorAll('.song').forEach(x=>x.open=false);
-$('donBtn').onclick=()=>alert('Hip cuisse à toi ! IBAN : BE49 0637 1081 9671 — communication : HIP CUISSE');
+$('donBtn').onclick = () => $('donDialog').showModal();
 $('year').textContent=new Date().getFullYear();
 window.addEventListener('hashchange',route);renderMembers();renderDisciples();renderSongs();route();
 </script></body></html>
