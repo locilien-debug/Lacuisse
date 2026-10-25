@@ -56,10 +56,10 @@ dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);c
 <dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label>Surnom</label><input name="nick"><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label>Intitulé du grade (disciple)</label><input name="gradeTitle" placeholder="Ex. : rang, titre, fonction"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
 <script>
 const defaultMembers = [
-  { id: crypto.randomUUID(), name:'Aurélien Locigno', nick:'Nicolas',   badges:['Chants'], photo:'', bio:"webmaster de La Cuisse."},
-  { id: crypto.randomUUID(), name:'Simon Paillet',   nick:'Elvis',     badges:['Chants'], photo:'', bio:"J'ai la même teub que Louis ronlez." },
-  { id: crypto.randomUUID(), name:'Tim Broers',       nick:'Flavien 2', badges:['Org'], photo:'', bio:"Dominique Pinon." },
-  { id: crypto.randomUUID(), name:'Louis Ronlez',     nick:'Flavien 1', badges:['Org'], photo:'', bio:"J'ai la même teub que Simon paillet." },
+  { id: crypto.randomUUID(), name:'Aurélien Locigno', nick:'Nicolas      Adolfus',   badges:['Chants'], photo:'', bio:"webmaster de La Cuisse."},
+  { id: crypto.randomUUID(), name:'Simon Paillet',   nick:'Elvis      Prepuscus',     badges:['Chants'], photo:'', bio:"J'ai la même teub que Louis ronlez." },
+  { id: crypto.randomUUID(), name:'Tim Broers',       nick:'Flavien 2      Grosglantus', badges:['Org'], photo:'', bio:"Dominique Pinon." },
+  { id: crypto.randomUUID(), name:'Louis Ronlez',     nick:'Flavien 1      Lechemacus', badges:['Org'], photo:'', bio:"J'ai la même teub que Simon paillet." },
 ];
 const defaultSongs = [
     {
