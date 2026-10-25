@@ -46,20 +46,25 @@ dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);c
 <article class="panel"><h3>4h cuisse</h3><p>Hip cuisse hip cuisse hip cuisse cuisse ! Et pour la cuisse, oh hisse !</p></article></div>
 <div class="actions"><button class="btn gold" id="donBtn">🦵 Nous faire un don</button></div>
 </section>
-<section class="view" data-view="/seigneurs"><div class="section-head"><div class="eyebrow">Le sommet du cercle</div><h2>Les Seigneurs 🏆</h2><p class="lead">Les quatre figures fondatrices de La Cuisse.</p></div><div class="toolbar"><input id="memberSearch" type="search" placeholder="Rechercher un Seigneur…"><button class="btn admin" id="addMember">+ Ajouter</button></div><div id="memberList" class="people"></div></section>
+<section class="view" data-view="/seigneurs"><div class="section-head"><div class="eyebrow">Le sommet du cercle</div><h2>Les Seigneurs 🏆</h2><p class="lead">Les quatre figures fondatrices de La Cuisse. Chacun possède son rôle, son surnom et sa présentation.</p></div><div class="toolbar"><input id="memberSearch" type="search" placeholder="Rechercher un Seigneur…"><button class="btn admin" id="addMember">+ Ajouter</button></div><div id="memberList" class="people"></div></section>
 <section class="view" data-view="/disciples"><div class="section-head"><div class="eyebrow">La relève</div><h2>Les Disciples 🦵</h2><p class="lead">Quatre lignées. Trois places par lignée. Chaque disciple possède sa fiche, son rang et son histoire.</p></div>
-<p class="note">Les descriptions de grades qui n'étaient pas clairement identifiables sont laissées à compléter depuis le mode Édition.</p>
+<p class="note">Les noms, surnoms, grades et biographies peuvent être modifiés directement dans le fichier index.html.</p>
 <div class="toolbar"><input id="discipleSearch" type="search" placeholder="Nom, catégorie ou rang…"><button class="btn admin" id="exportBtn">Exporter les données</button></div><div id="discipleList"></div></section>
 <section class="view" data-view="/chants"><div class="section-head"><div class="eyebrow">Le patrimoine musical</div><h2>Le chansonnier 🎶</h2><p class="lead">Tous les chants du site original, réunis au même endroit.</p></div><div class="toolbar"><input id="songSearch" type="search" placeholder="Rechercher un chant…"><div class="actions"><button class="btn" id="openSongs">Tout ouvrir</button><button class="btn" id="closeSongs">Tout fermer</button></div></div><div id="songList"></div></section>
 </main><footer><div class="wrap">🦵 LA CUISSE · Hip cuisse, j'ai envie de me masturber. · <span id="year"></span></div></footer>
-<dialog id="authDialog"><form id="authForm"><h2>Mode édition</h2><p class="muted">Édition locale de démonstration. Ne constitue pas une authentification sécurisée.</p><label>Mot de passe</label><input type="password" id="password" required><div class="actions"><button class="btn gold">Déverrouiller</button><button class="btn" type="button" data-close="authDialog">Annuler</button></div></form></dialog>
-<dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label>Surnom</label><input name="nick"><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label>Intitulé du grade (disciple)</label><input name="gradeTitle" placeholder="Ex. : rang, titre, fonction"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
+<dialog id="authDialog"><form id="authForm"><h2>Mode édition</h2><p class="muted">Prévisualisation locale uniquement : pour modifier le site pour tout le monde, change les fiches dans index.html sur GitHub. Ce mot de passe n'est pas une sécurité réelle.</p><label>Mot de passe</label><input type="password" id="password" required><div class="actions"><button class="btn gold">Déverrouiller</button><button class="btn" type="button" data-close="authDialog">Annuler</button></div></form></dialog>
+<dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label>Surnom</label><input name="nick"><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label id="roleLabel">Rôle / grade</label><input name="gradeTitle" placeholder="Ex. : Webmaster, Chants, Steeve 1"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
 <script>
+// =============================================================
+// MODIFIER LES 4 SEIGNEURS ICI
+// name = nom ; nick = surnom ; role = rôle affiché ; bio = présentation
+// photo = URL d'une photo (https://...)
+// =============================================================
 const defaultMembers = [
-  { id: crypto.randomUUID(), name:'Aurélien Locigno', nick:'Nicolas      Adolfus',   badges:['Chants'], photo:'', bio:"webmaster de La Cuisse."},
-  { id: crypto.randomUUID(), name:'Simon Paillet',   nick:'Elvis      Prepuscus',     badges:['Chants'], photo:'', bio:"J'ai la même teub que Louis ronlez." },
-  { id: crypto.randomUUID(), name:'Tim Broers',       nick:'Flavien 2      Grosglantus', badges:['Org'], photo:'', bio:"Dominique Pinon." },
-  { id: crypto.randomUUID(), name:'Louis Ronlez',     nick:'Flavien 1      Lechemacus', badges:['Org'], photo:'', bio:"J'ai la même teub que Simon paillet." },
+  {id:'seigneur-aurelien', name:'Aurélien Locigno', nick:'Nicolas Adolfus', role:'Chants', photo:'', bio:'webmaster de La Cuisse.'},
+  {id:'seigneur-simon', name:'Simon Paillet', nick:'Elvis Prepuscus', role:'Chants', photo:'', bio:"J'ai la même teub que Louis ronlez."},
+  {id:'seigneur-tim', name:'Tim Broers', nick:'Flavien 2 Grosglantus', role:'Organisation', photo:'', bio:'Dominique Pinon.'},
+  {id:'seigneur-louis', name:'Louis Ronlez', nick:'Flavien 1 Lechemacus', role:'Organisation', photo:'', bio:"J'ai la même teub que Simon paillet."}
 ];
 const defaultSongs = [
     {
@@ -952,10 +957,11 @@ hip cuisse hip hip hip`
     }
   ];
 
-const K={members:'laCuisse_members_v2',disciples:'laCuisse_disciples_v3',songs:'laCuisse_songs_v2'};
+const K={members:'laCuisse_members_v4',disciples:'laCuisse_disciples_v4',songs:'laCuisse_songs_v2'};
 const grades=['Steeve','Rubalise','Mike','Marc-André'];
+// MODIFIER LES 12 DISCIPLES ICI : name, nick, gradeTitle, bio, photo
 const defaults = [
-  {id:'Steeve-1', grade:'Steeve', number:1, name:'Bartho', nick:'Vachus', gradeTitle:'Steeve 2', bio:'baiseur de manchots', photo:''},
+  {id:'Steeve-1', grade:'Steeve', number:1, name:'Bartho', nick:'Vachus', gradeTitle:'Steeve 1', bio:'baiseur de manchots', photo:''},
   {id:'Steeve-2', grade:'Steeve', number:2, name:'Fasciana', nick:'Piermenus', gradeTitle:'Steeve 2', bio:'', photo:''},
   {id:'Steeve-3', grade:'Steeve', number:3, name:'Closset', nick:'Maisonclausus ', gradeTitle:'Steeve 3', bio:'', photo:''},
 
@@ -972,8 +978,9 @@ const defaults = [
   {id:'Marc-André-3', grade:'Marc-André', number:3, name:'Fox', nick:'Fus ', gradeTitle:'Marc-André 3', bio:'', photo:''}
   ];
 function load(k,fallback){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:fallback}catch{return fallback}}
+// Les fiches publiques proviennent toujours du code GitHub.
+// Le mode Édition est une prévisualisation locale (sans sauvegarde permanente).
 let members=defaultMembers.map(m=>({...m})),disciples=defaults.map(d=>({...d})),songs=defaultSongs;
-disciples=defaults.map(d=>({...d,...(disciples.find(x=>x.grade===d.grade&&x.number===d.number)||{})}));
 let editing=false,selected=null;
 const $=id=>document.getElementById(id);
 const fallback='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="120"><rect width="100" height="120" rx="14" fill="#59451d"/><text x="50" y="76" font-size="54" text-anchor="middle">🦵</text></svg>');
@@ -981,7 +988,7 @@ function safePhoto(url){try{const u=new URL(url);return ['https:','http:'].inclu
 function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
 function personCard(p,type){
  const card=el('article','person'),img=el('img','avatar');img.src=safePhoto(p.photo);img.alt='Portrait de '+(p.name||p.grade||'membre');img.onerror=()=>{img.onerror=null;img.src=fallback};
- const info=el('div'),title=el('h3','',p.name||(type==='disciple'?p.grade+' '+p.number:'Seigneur')),tag=el('span','tag',type==='disciple'?(p.gradeTitle||p.grade+' '+p.number):'SEIGNEUR');
+ const info=el('div'),title=el('h3','',p.name||(type==='disciple'?p.grade+' '+p.number:'Seigneur')),tag=el('span','tag',type==='disciple'?(p.gradeTitle||p.grade+' '+p.number):(p.role||'SEIGNEUR'));
  info.append(title,tag);
  if(p.nick)info.append(el('p','',p.nick));
  if(p.bio)info.append(el('p','',p.bio));
@@ -991,7 +998,7 @@ function personCard(p,type){
 }
 function renderMembers(){
  const root=$('memberList');root.replaceChildren();const q=$('memberSearch').value.toLocaleLowerCase();
- members.filter(p=>[p.name,p.nick,p.bio].join(' ').toLocaleLowerCase().includes(q)).forEach(p=>root.append(personCard(p,'member')));
+ members.filter(p=>[p.name,p.nick,p.bio,p.role].join(' ').toLocaleLowerCase().includes(q)).forEach(p=>root.append(personCard(p,'member')));
 }
 function renderDisciples(){
  const root=$('discipleList');root.replaceChildren();const q=$('discipleSearch').value.toLocaleLowerCase();
@@ -1016,8 +1023,9 @@ function route(){
 }
 function setEditing(v){editing=v;document.body.classList.toggle('editing',v);$('authBtn').textContent=v?'🔓 Quitter édition':'🔒 Édition';renderMembers();renderDisciples()}
 function editPerson(p,type){
- selected={id:p.id,type};const f=$('editForm');f.elements.personName.value=p.name||'';f.elements.nick.value=p.nick||'';f.elements.photo.value=p.photo||'';f.elements.bio.value=p.bio||'';f.elements.gradeTitle.value=p.gradeTitle||'';
- f.elements.gradeTitle.parentElement && (f.elements.gradeTitle.disabled=type!=='disciple');
+ selected={id:p.id,type};const f=$('editForm');f.elements.personName.value=p.name||'';f.elements.nick.value=p.nick||'';f.elements.photo.value=p.photo||'';f.elements.bio.value=p.bio||'';f.elements.gradeTitle.value=type==='disciple'?(p.gradeTitle||''):(p.role||'');
+ f.elements.gradeTitle.disabled=false;
+  $('roleLabel').textContent=type==='disciple'?'Intitulé du grade (disciple)':'Rôle du Seigneur';
  $('editTitle').textContent='Modifier · '+(p.name||p.grade+' '+p.number);$('editDialog').showModal()
 }
 $('editForm').addEventListener('submit',e=>{
@@ -1033,7 +1041,7 @@ $('authBtn').onclick=()=>editing?setEditing(false):$('authDialog').showModal();
 $('authForm').onsubmit=e=>{e.preventDefault();if($('password').value==='cuisse2024'){setEditing(true);$('authDialog').close();$('password').value=''}else alert('Mot de passe incorrect.')};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
 $('addMember').onclick=()=>{
- const p={id:crypto.randomUUID(),name:'Nouveau Seigneur',nick:'',photo:'',bio:''};members.push(p);localStorage.setItem(K.members,JSON.stringify(members));renderMembers();editPerson(p,'member')
+ const p={id:crypto.randomUUID(),name:'Nouveau Seigneur',nick:'',role:'Seigneur',photo:'',bio:''};members.push(p);renderMembers();editPerson(p,'member')
 };
 $('exportBtn').onclick=()=>{
  const blob=new Blob([JSON.stringify({members,disciples,songs},null,2)],{type:'application/json'});
