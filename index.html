@@ -20,8 +20,8 @@ h1{font-size:clamp(3.5rem,10vw,8rem);letter-spacing:-.07em;line-height:.9;margin
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:35px 0}.stat{padding:24px;border-top:2px solid var(--gold);background:#282216;border-radius:14px}.stat strong{display:block;color:var(--gold);font-size:2.3rem;line-height:1.2}
 .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0}.toolbar input{max-width:350px}
 input,textarea,select{background:#17150f;color:var(--ink);border:1px solid #71603a;border-radius:12px;padding:12px;width:100%}textarea{min-height:110px}label{display:block;font-weight:700;margin:10px 0 5px}
-.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.person{display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px}.avatar{width:86px;height:100px;flex-shrink:0;object-fit:cover;border-radius:14px;background:#43341b}.person h3{margin:0;font-size:1.08rem}.person p{margin:5px 0;color:var(--muted);font-size:.88rem}.tag{display:inline-block;color:#211807;background:var(--gold);font-size:.72rem;font-weight:900;padding:3px 9px;border-radius:30px;margin:6px 0}
-.grade{margin:40px 0}.grade-head{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}.grade-head h3{font-size:1.7rem;margin:0}.grade-head span{color:var(--gold)}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.person{cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px}.avatar{width:86px;height:100px;flex-shrink:0;object-fit:cover;border-radius:14px;background:#43341b}.person h3{margin:0;font-size:1.08rem}.person p{margin:5px 0;color:var(--muted);font-size:.88rem}.tag{display:inline-block;color:#211807;background:var(--gold);font-size:.72rem;font-weight:900;padding:3px 9px;border-radius:30px;margin:6px 0}
+.person:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 30px #0004}.person:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.person .preview{font-size:.76rem;color:var(--gold);margin-top:10px}.detail-head{display:flex;gap:20px;align-items:flex-start}.detail-photo{width:145px;height:175px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#43341b}.detail-info h2{font-size:2rem;margin:4px 0}.detail-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-top:15px}.detail-info #detailNick,.detail-info #detailNick2{font-weight:700;font-size:1.05rem}.detail-bio{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}.detail-close{float:right}.detail-dialog{width:min(670px,94vw)}@media(max-width:570px){.detail-head{flex-direction:column}.detail-photo{width:120px;height:145px}}.grade{margin:40px 0}.grade-head{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}.grade-head h3{font-size:1.7rem;margin:0}.grade-head span{color:var(--gold)}
 .song{border:1px solid var(--line);background:var(--panel);border-radius:16px;margin:10px 0;overflow:hidden}.song summary{padding:16px 20px;cursor:pointer;font-weight:800}.song[open] summary{color:var(--gold);border-bottom:1px solid var(--line)}.lyrics{padding:16px 20px;white-space:pre-wrap;font-family:inherit;line-height:1.9;color:#eee4c9;overflow-wrap:anywhere}
 footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 0;color:var(--muted)}
 dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);color:var(--ink);width:min(520px,94vw);max-height:90vh;overflow:auto;padding:25px}dialog::backdrop{background:#000b}
@@ -51,19 +51,20 @@ dialog{border:1px solid var(--gold);border-radius:20px;background:var(--panel);c
 <div class="toolbar"><input id="discipleSearch" type="search" placeholder="Nom, catégorie ou rang…"><button class="btn admin" id="exportBtn">Exporter les données</button></div><div id="discipleList"></div></section>
 <section class="view" data-view="/chants"><div class="section-head"><div class="eyebrow">Le patrimoine musical</div><h2>Le chansonnier 🎶</h2><p class="lead">Tous les chants du site original, réunis au même endroit.</p></div><div class="toolbar"><input id="songSearch" type="search" placeholder="Rechercher un chant…"><div class="actions"><button class="btn" id="openSongs">Tout ouvrir</button><button class="btn" id="closeSongs">Tout fermer</button></div></div><div id="songList"></div></section>
 </main><footer><div class="wrap">🦵 LA CUISSE · Hip cuisse, j'ai envie de me masturber. · <span id="year"></span></div></footer>
+<dialog id="detailDialog" class="detail-dialog" aria-labelledby="detailName"><button type="button" class="btn detail-close" id="closeDetail">✕ Fermer</button><div class="detail-head"><img id="detailPhoto" class="detail-photo" alt="Portrait"><div class="detail-info"><div class="eyebrow" id="detailCategory"></div><h2 id="detailName"></h2><span class="tag" id="detailRole"></span><div class="detail-label" id="detailNickLabel">Pseudo</div><div id="detailNick"></div><div id="detailNick2Wrap" hidden><div class="detail-label">Deuxième pseudo</div><div id="detailNick2"></div></div></div></div><div class="detail-label">Description / biographie</div><p class="detail-bio" id="detailBio"></p></dialog>
 <dialog id="authDialog"><form id="authForm"><h2>Mode édition</h2><p class="muted">Prévisualisation locale uniquement : pour modifier le site pour tout le monde, change les fiches dans index.html sur GitHub. Ce mot de passe n'est pas une sécurité réelle.</p><label>Mot de passe</label><input type="password" id="password" required><div class="actions"><button class="btn gold">Déverrouiller</button><button class="btn" type="button" data-close="authDialog">Annuler</button></div></form></dialog>
-<dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label>Surnom</label><input name="nick"><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label id="roleLabel">Rôle / grade</label><input name="gradeTitle" placeholder="Ex. : Webmaster, Chants, Steeve 1"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
+<dialog id="editDialog"><form id="editForm"><h2 id="editTitle">Modifier la fiche</h2><label>Nom</label><input name="personName"><label id="nickLabel">Pseudo</label><input name="nick"><div id="nick2Field" hidden><label>Deuxième pseudo (Seigneur uniquement)</label><input name="nick2"></div><label>Photo (lien HTTPS)</label><input name="photo" placeholder="https://…"><label>Description / présentation</label><textarea name="bio"></textarea><label id="roleLabel">Rôle / grade</label><input name="gradeTitle" placeholder="Ex. : Webmaster, Chants, Steeve 1"><div class="actions"><button class="btn gold">Enregistrer</button><button type="button" class="btn" data-close="editDialog">Annuler</button></div></form></dialog>
 <script>
 // =============================================================
 // MODIFIER LES 4 SEIGNEURS ICI
-// name = nom ; nick = surnom ; role = rôle affiché ; bio = présentation
+// name = nom ; nick = premier pseudo ; nick2 = deuxième pseudo ; role = rôle ; bio = présentation
 // photo = URL d'une photo (https://...)
 // =============================================================
 const defaultMembers = [
-  {id:'seigneur-aurelien', name:'Aurélien Locigno', nick:'Nicolas Adolfus', role:'Chants', photo:'', bio:'webmaster de La Cuisse.'},
-  {id:'seigneur-simon', name:'Simon Paillet', nick:'Elvis Prepuscus', role:'Chants', photo:'', bio:"J'ai la même teub que Louis ronlez."},
-  {id:'seigneur-tim', name:'Tim Broers', nick:'Flavien 2 Grosglantus', role:'Organisation', photo:'', bio:'Dominique Pinon.'},
-  {id:'seigneur-louis', name:'Louis Ronlez', nick:'Flavien 1 Lechemacus', role:'Organisation', photo:'', bio:"J'ai la même teub que Simon paillet."}
+  {id:'seigneur-aurelien', name:'Aurélien Locigno', nick:'Nicolas', nick2:'Adolfus', role:'Chants', photo:'', bio:'webmaster de La Cuisse.'},
+  {id:'seigneur-simon', name:'Simon Paillet', nick:'Elvis', nick2:'Prepuscus', role:'Chants', photo:'', bio:"J'ai la même teub que Louis ronlez."},
+  {id:'seigneur-tim', name:'Tim Broers', nick:'Flavien 2', nick2:'Grosglantus', role:'Organisation', photo:'', bio:'Dominique Pinon.'},
+  {id:'seigneur-louis', name:'Louis Ronlez', nick:'Flavien 1', nick2:'Lechemacus', role:'Organisation', photo:'', bio:"J'ai la même teub que Simon paillet."}
 ];
 const defaultSongs = [
     {
@@ -985,19 +986,44 @@ const $=id=>document.getElementById(id);
 const fallback='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="120"><rect width="100" height="120" rx="14" fill="#59451d"/><text x="50" y="76" font-size="54" text-anchor="middle">🦵</text></svg>');
 function safePhoto(url){try{const u=new URL(url);return ['https:','http:'].includes(u.protocol)?u.href:fallback}catch{return fallback}}
 function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function openPerson(p,type){
+ const isDisciple=type==='disciple';
+ $('detailName').textContent=p.name|| (isDisciple?p.grade+' '+p.number:'Seigneur');
+ $('detailCategory').textContent=isDisciple?'Disciple · '+p.grade:'Seigneur de La Cuisse';
+ $('detailRole').textContent=isDisciple?(p.gradeTitle||p.grade+' '+p.number):(p.role||'Seigneur');
+ $('detailNickLabel').textContent=isDisciple?'Pseudo':'Premier pseudo';
+ $('detailNick').textContent=p.nick||'À compléter';
+ $('detailNick2Wrap').hidden=isDisciple;
+ $('detailNick2').textContent=isDisciple?'':(p.nick2||'À compléter');
+ $('detailBio').textContent=p.bio||'Biographie à compléter.';
+ const img=$('detailPhoto');img.src=safePhoto(p.photo);img.alt='Portrait de '+(p.name||'membre');
+ img.onerror=()=>{img.onerror=null;img.src=fallback};
+ $('detailDialog').showModal();
+}
 function personCard(p,type){
- const card=el('article','person'),img=el('img','avatar');img.src=safePhoto(p.photo);img.alt='Portrait de '+(p.name||p.grade||'membre');img.onerror=()=>{img.onerror=null;img.src=fallback};
- const info=el('div'),title=el('h3','',p.name||(type==='disciple'?p.grade+' '+p.number:'Seigneur')),tag=el('span','tag',type==='disciple'?(p.gradeTitle||p.grade+' '+p.number):(p.role||'SEIGNEUR'));
+ const card=el('article','person'),img=el('img','avatar');
+ img.src=safePhoto(p.photo);img.alt='Portrait de '+(p.name||p.grade||'membre');
+ img.onerror=()=>{img.onerror=null;img.src=fallback};
+ const info=el('div'),title=el('h3','',p.name||(type==='disciple'?p.grade+' '+p.number:'Seigneur'));
+ const tag=el('span','tag',type==='disciple'?(p.gradeTitle||p.grade+' '+p.number):(p.role||'Seigneur'));
  info.append(title,tag);
  if(p.nick)info.append(el('p','',p.nick));
- if(p.bio)info.append(el('p','',p.bio));
+ if(type==='member'&&p.nick2)info.append(el('p','',p.nick2));
+ info.append(el('p','preview','Voir la fiche complète →'));
  card.append(img,info);
- if(editing){const b=el('button','btn','✏️');b.type='button';b.title='Modifier la fiche';b.onclick=()=>editPerson(p,type);card.append(b)}
- return card
+ card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','Voir la fiche de '+(p.name||p.grade+' '+p.number));
+ card.onclick=()=>openPerson(p,type);
+ card.onkeydown=e=>{if(e.target===card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPerson(p,type)}};
+ if(editing){
+  const b=el('button','btn','✏️');b.type='button';b.title='Modifier la fiche';
+  b.onclick=e=>{e.stopPropagation();editPerson(p,type)};card.append(b)
+ }
+ return card;
 }
+
 function renderMembers(){
  const root=$('memberList');root.replaceChildren();const q=$('memberSearch').value.toLocaleLowerCase();
- members.filter(p=>[p.name,p.nick,p.bio,p.role].join(' ').toLocaleLowerCase().includes(q)).forEach(p=>root.append(personCard(p,'member')));
+ members.filter(p=>[p.name,p.nick,p.nick2,p.bio,p.role].join(' ').toLocaleLowerCase().includes(q)).forEach(p=>root.append(personCard(p,'member')));
 }
 function renderDisciples(){
  const root=$('discipleList');root.replaceChildren();const q=$('discipleSearch').value.toLocaleLowerCase();
@@ -1022,7 +1048,7 @@ function route(){
 }
 function setEditing(v){editing=v;document.body.classList.toggle('editing',v);$('authBtn').textContent=v?'🔓 Quitter édition':'🔒 Édition';renderMembers();renderDisciples()}
 function editPerson(p,type){
- selected={id:p.id,type};const f=$('editForm');f.elements.personName.value=p.name||'';f.elements.nick.value=p.nick||'';f.elements.photo.value=p.photo||'';f.elements.bio.value=p.bio||'';f.elements.gradeTitle.value=type==='disciple'?(p.gradeTitle||''):(p.role||'');
+ selected={id:p.id,type};const f=$('editForm');f.elements.personName.value=p.name||'';f.elements.nick.value=p.nick||'';f.elements.nick2.value=type==='member'?(p.nick2||''):'';$('nick2Field').hidden=type==='disciple';$('nickLabel').textContent=type==='disciple'?'Pseudo':'Premier pseudo';f.elements.photo.value=p.photo||'';f.elements.bio.value=p.bio||'';f.elements.gradeTitle.value=type==='disciple'?(p.gradeTitle||''):(p.role||'');
  f.elements.gradeTitle.disabled=false;
   $('roleLabel').textContent=type==='disciple'?'Intitulé du grade (disciple)':'Rôle du Seigneur';
  $('editTitle').textContent='Modifier · '+(p.name||p.grade+' '+p.number);$('editDialog').showModal()
@@ -1031,16 +1057,19 @@ $('editForm').addEventListener('submit',e=>{
  e.preventDefault();if(!editing||!selected)return;
  const a=selected.type==='disciple'?disciples:members,p=a.find(x=>x.id===selected.id),f=e.currentTarget;
  if(!p)return;
- p.name=f.elements.personName.value.trim();p.nick=f.elements.nick.value.trim();p.photo=f.elements.photo.value.trim();p.bio=f.elements.bio.value.trim();
+ p.name=f.elements.personName.value.trim();p.nick=f.elements.nick.value.trim();if(selected.type==='member')p.nick2=f.elements.nick2.value.trim();p.photo=f.elements.photo.value.trim();p.bio=f.elements.bio.value.trim();
  if(selected.type==='disciple')p.gradeTitle=f.elements.gradeTitle.value.trim();
- localStorage.setItem(selected.type==='disciple'?K.disciples:K.members,JSON.stringify(a));
+  else p.role=f.elements.gradeTitle.value.trim();
+ // Prévisualisation locale seulement : les données publiques viennent du code GitHub.
  $('editDialog').close();renderMembers();renderDisciples()
 });
+$('closeDetail').onclick=()=>$('detailDialog').close();
+$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close()});
 $('authBtn').onclick=()=>editing?setEditing(false):$('authDialog').showModal();
 $('authForm').onsubmit=e=>{e.preventDefault();if($('password').value==='cuisse2024'){setEditing(true);$('authDialog').close();$('password').value=''}else alert('Mot de passe incorrect.')};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
 $('addMember').onclick=()=>{
- const p={id:crypto.randomUUID(),name:'Nouveau Seigneur',nick:'',role:'Seigneur',photo:'',bio:''};members.push(p);renderMembers();editPerson(p,'member')
+ const p={id:crypto.randomUUID(),name:'Nouveau Seigneur',nick:'',nick2:'',role:'Seigneur',photo:'',bio:''};members.push(p);renderMembers();editPerson(p,'member')
 };
 $('exportBtn').onclick=()=>{
  const blob=new Blob([JSON.stringify({members,disciples,songs},null,2)],{type:'application/json'});
